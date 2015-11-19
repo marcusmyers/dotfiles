@@ -1,0 +1,102 @@
+#!/usr/bin/env bash
+#
+# Install software for ubuntu desktop
+
+set -e
+
+source "functions/e_header"
+source "functions/e_success"
+source "functions/setdiff"
+
+prompt_delay=10
+# Installing this sudoers file makes life easier.
+sudoers_file="sudoers-dotfiles"
+sudoers_src=$ZSH/conf/ubuntu/$sudoers_file
+sudoers_dest="/etc/sudoers.d/$sudoers_file"
+if [[ ! -e "$sudoers_dest" || "$sudoers_dest" -ot "$sudoers_src" ]]; then
+  cat <<EOF
+The sudoers file can be updated to allow "sudo apt-get" to be executed
+without asking for a password. You can verify that this worked correctly by
+running "sudo -k apt-get". If it doesn't ask for a password, and the output
+looks normal, it worked.
+THIS SHOULD ONLY BE ATTEMPTED IF YOU ARE LOGGED IN AS ROOT IN ANOTHER SHELL.
+This will be skipped if "Y" isn't pressed within the next $prompt_delay seconds.
+EOF
+  echo -n "Update sudoers file? [y/N]:"
+  read -n 1 update_sudoers; echo
+  if [[ "$update_sudoers" =~ [Yy] ]]; then
+#    e_header "Updating sudoers"
+    visudo -cf "$sudoers_src" &&
+    sudo cp "$sudoers_src" "$sudoers_dest" &&
+    sudo chmod 0440 "$sudoers_dest" &&
+    echo "File $sudoers_dest updated." ||
+    echo "Error updating $sudoers_dest file."
+  else
+    echo "Skipping."
+  fi
+fi
+
+# Update APT.
+# e_header "Updating APT"
+sudo apt-get -qq update
+sudo apt-get -qq dist-upgrade
+
+# Install APT packages.
+packages=(
+  build-essential
+  git-core
+  git-extras
+  htop
+  libssl-dev
+  nmap
+  silversearcher-ag
+  sl
+  telnet
+  tree
+)
+
+packages=($(setdiff "${packages[*]}" "$(dpkg --get-selections | grep -v deinstall | awk '{print $1}')"))
+if (( ${#packages[@]} > 0 )); then
+  e_header "Installing APT packages: ${packages[*]}"
+  for package in "${packages[@]}"; do
+    sudo apt-get -qq install "$package"
+  done
+fi
+
+# Install Puppet
+if [ ! -d /opt/puppetlabs/bin/ ]; then
+  e_header "Install Pupppet"
+  curl https://apt.puppetlabs.com/puppetlabs-release-pc1-vivid.deb > /tmp/puppetlabs-release-pc1-vivid.deb
+  sudo dpkg -i /tmp/puppetlabs-release-pc1-vivid.deb
+  sudo apt-get update
+  rm /tmp/puppetlabs-release-pc1-vivid.deb
+  sudo apt-get install puppet-agent
+  e_success "Successfully installed puppet"
+fi
+
+# Install Launchy
+if [ ! -x /usr/bin/launchy ]; then
+  e_header "Install Launchy"
+  curl http://www.launchy.net/downloads/linux/launchy_2.5-1_amd64.deb > /tmp/launchy_2.5-1_amd64.deb
+  sudo dpkg -i /tmp/launchy_2.5-1_amd64.deb
+  sudo updatedb && locate launchy
+  e_success "Successfully installed Launchy and run on boot"
+  rm /tmp/launchy_2.5-1_amd64.deb
+fi
+
+# Install VirtualBox
+if [ ! -x /usr/bin/vboxmanage ]; then
+  e_header "Install VirtualBox"
+  sudo sh -c "echo 'deb http://download.virtualbox.org/virtualbox/debian '$(lsb_release -cs)' contrib non-free' > /etc/apt/sources.list.d/virtualbox.list" && wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add - && sudo apt-get update && sudo apt-get -qq install virtualbox-5.0
+  sudo usermod -a -G vboxusers $USER
+  e_success "Successfully installed Virtualbox"
+fi
+
+if [ ! -x /usr/bin/atom ]; then
+  e_header "Install atom.io"
+  curl -L https://github.com/atom/atom/releases/download/v1.2.2/atom-amd64.deb > /tmp/atom-amd64.deb
+  sudo dpkg -i /tmp/atom-amd64.deb
+  e_success "Successfully installed atom.io"
+  rm /tmp/atom-amd64.deb
+fi
+

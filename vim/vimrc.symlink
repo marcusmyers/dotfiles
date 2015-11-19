@@ -11,3 +11,9 @@ let g:airline_powerline_fonts = 1
 " Set theme
 set background=dark
 colorscheme ubaryd
+
+" Global tab width.
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
