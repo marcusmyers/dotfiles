@@ -9,14 +9,26 @@ let g:airline_section_y = 'BN: %{bufnr("%")}'
 let g:airline_powerline_fonts = 1
 
 " Set theme
+let base16colorspace=256  " Access colors present in 256 colorspace
 set background=dark
-colorscheme ubaryd
+colorscheme solarized
 
 " Global tab width.
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set expandtab
+
+" Airline Settings
+let g:airline_powerline_fonts = 1
+let g:airline_left_sep = "\ue0b0"
+let g:airline_right_sep = "\ue0b2"
+
+" Set to show invisibles (tabs & trailing spaces) & their highlight color
+set list listchars=tab:»\ ,trail:·
+
+set number
+set ruler
 
 " Map nerd tree
 map <C-n> :NERDTreeToggle<CR>
