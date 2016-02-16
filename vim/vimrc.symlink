@@ -69,6 +69,8 @@ set visualbell
 " Clear search results
 nnoremap <leader><space> :noh<cr>
 
+"-----------Splits--------------"
+
 " Navigating splits
 nnoremap <leader>w <C-w>v<C-w>l
 nnoremap <C-h> <C-w>h
@@ -97,6 +99,8 @@ set spelllang=en_us
 " "   # end
 let g:NERDSpaceDelims=1
 
+set guioptions-='r'
+
 " Map nerd tree
 map <C-n> :NERDTreeToggle<CR>
 
@@ -105,3 +109,11 @@ execute pathogen#infect()
 call pathogen#helptags() " generate helptags for everything in ‘runtimepath’
 syntax on
 filetype plugin indent on
+
+"-------------Auto-Commands--------------"
+
+"Automatically source the Vimrc file on save.
+augroup autosourcing
+  autocmd!
+  autocmd BufWritePost .vimrc source %
+augroup END

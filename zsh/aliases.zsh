@@ -9,3 +9,6 @@ function e_arrow()    { echo -e " \033[1;34m➜\033[0m  $@"; }
 alias homestead='cd ~/Homestead && vagrant'
 alias dclean='docker rm `docker ps -a -q -f status=exited`'
 alias diclean='docker rmi `docker images -q -f dangling=true`'
+alias mycode='cd ~/Code'
+alias vimrc='vim ~/.vimrc'
+alias dotfiles='cd ~/.dotfiles'
