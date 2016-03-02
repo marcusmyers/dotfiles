@@ -26,7 +26,7 @@ relies_on(){
   done
 }
 
-slack() {
+scud() {
   del_stopped scudcloud
 
   docker run -d \
@@ -69,5 +69,3 @@ notify_send(){
 
   docker exec -i notify_osd notify-send "$1" "${args}"
 }
-
-

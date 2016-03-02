@@ -49,6 +49,7 @@ set wildmode=list:longest
 " Highlight matches as you type.
 set incsearch
 " Highlight matches.
+
 set hlsearch
 " Case-insensitive searching.
 set ignorecase
@@ -67,7 +68,7 @@ set title
 set visualbell
 
 " Clear search results
-nnoremap <leader><space> :noh<cr>
+nnoremap ,<space> :noh<cr>
 
 "-----------Splits--------------"
 
@@ -103,6 +104,11 @@ set guioptions-='r'
 
 " Map nerd tree
 map <C-n> :NERDTreeToggle<CR>
+
+"-----------Laravel-Commands------------"
+
+nnoremap <leader>lr :e app/Http/routes.php<cr>
+nnoremap <leader>lm :!php artisan make:
 
 " Pathogen
 execute pathogen#infect()
