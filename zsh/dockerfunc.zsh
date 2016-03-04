@@ -43,6 +43,16 @@ scud() {
           vdemeester/scudcloud
 }
 
+aws(){
+  del_stopped awscli
+
+  docker run -it --rm \
+    -v $HOME/.aws:/root/aws \
+    --log-driver none \
+    --name awscli \
+    jess/awscli "$@"
+}
+
 notify_osd(){
   del_stopped notify_osd
 

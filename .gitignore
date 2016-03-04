@@ -8,3 +8,5 @@ atom.symlink/themes
 atom.symlink/nohup.out
 
 git/gitconfig.symlink
+
+private
