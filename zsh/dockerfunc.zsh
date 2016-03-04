@@ -13,6 +13,18 @@ del_stopped(){
   fi
 }
 
+mkthumbnail()
+{
+  del_stopped mkthumb
+
+  docker run -d \
+    -v `pwd`:/data \
+    --name mkthumb \
+    -w="/data" \
+    jess/imagemagick \
+    convert -define jpeg:size=500x180 $1 -auto-orient -thumbnail 250x90 -unsharp 0x.5 $2
+}
+
 relies_on(){
   local containers=$@
 
