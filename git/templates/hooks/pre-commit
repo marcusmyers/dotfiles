@@ -1,0 +1,12 @@
+#!/bin/bash
+
+FILES_WITH_FOCUS_TAGS=`grep -El "(:focus\s*=\>|,\s*:focus|focus:\s*true)" $(git diff --cached --name-status | awk '$1 == "M" || $1 == "A" { print $2 }' | grep "_spec.rb")`
+
+NUMBER_OF_FOCUS_ADDITIONS=`echo "$FILES_WITH_FOCUS_TAGS" | wc -l`
+
+if [[ $FILES_WITH_FOCUS_TAGS != "" && $NUMBER_OF_FOCUS_ADDITIONS != 0 ]]; then
+  echo "Aborting commit, remove the 'focus' tags from the following files:"
+  echo ""
+  echo "$FILES_WITH_FOCUS_TAGS"
+  exit 1
+fi

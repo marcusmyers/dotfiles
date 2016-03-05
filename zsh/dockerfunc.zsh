@@ -25,6 +25,16 @@ mkthumbnail()
     convert -define jpeg:size=500x180 $1 -auto-orient -thumbnail 250x90 -unsharp 0x.5 $2
 }
 
+http()
+{
+  del_stopped httpie
+
+  docker run --rm \
+    --log-driver none \
+    --name httpie \
+    jess/httpie "$@"
+}
+
 relies_on(){
   local containers=$@
 
