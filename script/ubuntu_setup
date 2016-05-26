@@ -53,6 +53,7 @@ packages=(
   sl
   telnet
   tree
+  diodon
 )
 
 packages=($(setdiff "${packages[*]}" "$(dpkg --get-selections | grep -v deinstall | awk '{print $1}')"))

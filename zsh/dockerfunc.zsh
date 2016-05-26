@@ -48,23 +48,6 @@ relies_on(){
   done
 }
 
-scud() {
-  del_stopped scudcloud
-
-  docker run -d \
-          -v /etc/localtime:/etc/localtime:ro \
-          -v /tmp/.X11-unix:/tmp/.X11-unix \
-          -e DISPLAY=unix$DISPLAY \
-          --device /dev/snd \
-          -v $HOME/.config/scudcloud:/home/scudcloud/.config/scudcloud \
-          -v /run/user/1000/pulse/native:/run/pulse/socket \
-          -e PULSE_SERVER=unix:/run/pulse/socket \
-          -v ~/.config/pulse/cookie:/run/pulse/cookie \
-          -e PULSE_COOKIE=/run/pulse/cookie \
-          --name scudcloud \
-          vdemeester/scudcloud
-}
-
 aws(){
   del_stopped awscli
 
@@ -94,6 +77,7 @@ notify_osd(){
     --name notify_osd \
     jess/notify-osd
 }
+
 alias notify-send=notify_send
 notify_send(){
   relies_on notify_osd
