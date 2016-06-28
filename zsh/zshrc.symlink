@@ -29,7 +29,7 @@ fi
 #config_files=($DOTFILES/**/*.zsh)
 
 # load the path files
-for config_file ($DOTFILES/(^users/)#*.zsh) source $config_file
+for config_file ($DOTFILES/**/*.zsh(.N)) source $config_file
 
 # Load custom users zsh settings
 for config_file ($USER_DOTFILES/**/*.user_zsh(.N)) source $config_file
