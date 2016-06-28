@@ -1,2 +1,2 @@
 export PATH=$PATH:$HOME/.myfam
-export GOPATH=$HOME/work
+export $PROJECTS=$HOME/work
