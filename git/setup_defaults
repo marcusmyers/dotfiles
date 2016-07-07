@@ -1,5 +1,7 @@
 #!/bin/sh
 
+OS=`uname`
+
 # Setup global excludes
 git config --global core.excludesfile ~/.gitignore
 
@@ -35,5 +37,8 @@ git config --global branch.autosetupmerge true
 git config --global push.default current
 
 # For using `git web--browse`
-git config --global web.browser open
-
+if [ "$OS" = "Linux" ]; then
+  git config --global web.browser chromium
+else
+  git config --global web.browser open
+fi

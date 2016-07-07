@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ "x$2" != "x" ]; then
+  exit
+fi
+
 BRANCH_NAME=$(git symbolic-ref -q HEAD)
 BRANCH_NAME=${BRANCH_NAME##*/}
 
