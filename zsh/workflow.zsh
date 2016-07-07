@@ -17,7 +17,7 @@ bm_asana() {
     "copy_branch")
       if [ ! -z $task_number_from_branch ]; then
         echo "Copying task #$task_number_from_branch to the clipboard";
-        bm asana $task_number_from_branch url | pbcopy;
+        bm asana $task_number_from_branch url | xclip;
       fi
       ;;
     *)
@@ -65,7 +65,7 @@ finish() {
     echo "Dude! -9001"
   else
     git push origin `current_branch`
-    command="bm_${TICKET_SYSTEM_BINARY}"
+    command="bm_asana"
     eval "$command copy_branch"
   fi
 }
