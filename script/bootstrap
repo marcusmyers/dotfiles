@@ -138,7 +138,11 @@ install_dotfiles () {
   done
 }
 
+install_vundle() {
+  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+}
 setup_gitconfig
+install_vundle
 install_dotfiles
 
 # If we're on a Mac, let's install and setup homebrew.
