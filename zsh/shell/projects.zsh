@@ -1,0 +1,5 @@
+alias mycode='cd ~/Code'
+alias vimrc='vim ~/.vimrc'
+alias dotfiles='cd ~/.dotfiles'
+alias gabbro='cd ~/Code/gabbro'
+alias manilla='cd ~/Code/manilla'
