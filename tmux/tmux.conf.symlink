@@ -45,6 +45,9 @@ unbind-key M-8      ; bind-key -n M-8   select-window -t 8
 unbind-key M-9      ; bind-key -n M-9   select-window -t 9
 unbind-key M-0      ; bind-key -n M-0   select-window -t 10
 
+# Zoom tmux pane with '+' key
+bind + resize-pane -Z
+
 #### COLOUR (Solarized dark theme)
 # https://github.com/altercation/solarized/blob/master/tmux/tmuxcolors-dark.conf
 #
