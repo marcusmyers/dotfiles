@@ -139,7 +139,20 @@ install_dotfiles () {
 }
 
 install_vundle() {
-  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+  if [[ ! -a $HOME/.vim/bundle/Vundle.vim ]]; then
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+  fi
+
+  # Install Nerdtree
+  if [[ ! -d $HOME/.vim/bundle/nerdtree ]]; then
+    git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
+  fi
+
+  # Install Pathogen
+  if [[ ! -d $HOME/.vim/autoload ]]; then
+    mkdir $HOME/.vim/autoload
+    curl -LSso $HOME/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+  fi
 }
 
 setup_gitconfig
