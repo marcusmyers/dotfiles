@@ -14,14 +14,16 @@
       "tmp"
       "vendor"
     ]
+    telemetryConsent: "no"
     themes: [
-      "unity-ui"
-      "glacier-syntax"
+      "atom-dark-ui"
+      "dracula-syntax"
     ]
   editor:
-    fontFamily: "Menlo"
-    fontSize: 15
+    fontFamily: "Operator Mono"
+    fontSize: 16
     invisibles: {}
+    lineHeight: 1.75
     showIndentGuide: true
     softWrapAtPreferredLineLength: true
   "formatter-json":
