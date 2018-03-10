@@ -35,6 +35,14 @@ http()
     jess/httpie "$@"
 }
 
+composer()
+{
+  docker run --rm \
+    --volume `pwd`:/data \
+    --workdir /data \
+    --entrypoint "/usr/local/bin/composer" marcusmyers/composer:1.5.4 $@
+}
+
 relies_on(){
   local containers=$@
 
