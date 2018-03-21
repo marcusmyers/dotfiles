@@ -10,3 +10,4 @@ atom.symlink/nohup.out
 git/gitconfig.symlink
 
 private
+users/*/private/*
