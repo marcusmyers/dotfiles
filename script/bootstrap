@@ -159,6 +159,17 @@ setup_gitconfig
 install_vundle
 install_dotfiles
 
+# Create AWS Credentials
+mkdir -p users/$USER/private
+
+if [[ ! -s users/$USER/private/aws.user_zsh ]]; then
+    cat <<EOF > users/$USER/private/aws.user_zsh
+# AWS Credentials for CLI Tools
+export AWS_SECRET_ACCESS_KEY={YourAccessKeyId}
+export AWS_ACCESS_KEY_ID={YourSecretKey}
+EOF
+fi
+
 # If we're on a Mac, let's install and setup homebrew.
 if [ "$(uname -s)" == "Darwin" ]
 then
