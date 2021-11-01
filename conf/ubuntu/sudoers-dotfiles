@@ -1,0 +1,15 @@
+# This file gets copied to /etc/sudoers.d/ by init/20_ubuntu_apt.sh
+# Reference: http://ubuntuforums.org/showthread.php?t=1132821
+
+# Command aliases.
+Cmnd_Alias APT = /usr/bin/apt-get
+Cmnd_Alias DPKG = /usr/bin/dpkg
+Cmnd_Alias UPDATEDB = /usr/bin/updatedb
+
+# Members of the sudo and admin groups can run these commands without password.
+%sudo ALL=(ALL) ALL, NOPASSWD:APT
+%admin ALL=(ALL) ALL, NOPASSWD:APT
+%sudo ALL=(ALL) ALL, NOPASSWD:DPKG
+%admin ALL=(ALL) ALL, NOPASSWD:DPKG
+%sudo ALL=(ALL) ALL, NOPASSWD:UPDATEDB
+%admin ALL=(ALL) ALL, NOPASSWD:UPDATEDB

@@ -1,0 +1,44 @@
+#!/bin/sh
+
+OS=`uname`
+
+# Setup global excludes
+git config --global core.excludesfile ~/.gitignore
+
+# Use colors as much as possible
+git config --global color.diff auto
+git config --global color.status auto
+git config --global color.branch auto
+git config --global color.interactive auto
+
+# Setup defaults for any git merge
+git config --global merge.summary true
+
+# Alias to use for git commands
+git config --global alias.st status
+git config --global alias.ci commit
+git config --global alias.co checkout
+git config --global alias.br branch
+
+# cleanup any branches merged into the current branch
+git config --global alias.cleanlocal "!zsh -c 'BRANCH=\`git current\`; if [[ ! \$BRANCH =~  ^master$ ]];then read \"?Are you sure you want to run while not in master (you run the risk of deleting master)? (y/n) \" choice; if [[ ! \$choice =~ ^[Yy]$ ]]; then echo Nothing done; exit 0; fi ; fi; for stale_branch (\`git branch --merged \$BRANCH | grep -v \$BRANCH\`) git branch -d \$stale_branch'"
+# output the current branch
+git config --global alias.current "!git rev-parse --abbrev-ref HEAD"
+git config --global alias.some "!git checkout master && git pull --rebase && git remote prune origin && git cleanlocal"
+
+# Setup the default location for the git-hook templates
+git config --global init.templatedir $HOME/.dotfiles/git/templates
+
+# tells git-branch and git-checkout to setup new branches so that git-pull(1)
+# will appropriately merge from that remote branch
+git config --global branch.autosetupmerge true 
+
+# Only push the current branch by default
+git config --global push.default current
+
+# For using `git web--browse`
+if [ "$OS" = "Linux" ]; then
+  git config --global web.browser chromium
+else
+  git config --global web.browser open
+fi
