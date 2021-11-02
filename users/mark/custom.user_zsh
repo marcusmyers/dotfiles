@@ -1,9 +1,0 @@
-alias vessel='./vessel'
-alias sail='./vendor/bin/sail'
-
-if [[ -v TMUX ]]; then
-  tmux set -g window-status-format '#I:#{b:pane_current_path}'
-  tmux set -g window-status-current-format '#I@#{b:pane_current_path}'
-  tmux set -g status-left ' '
-  tmux set -g status-right ' %Y-%m-%d %H:%M:%S '
-fi
