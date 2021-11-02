@@ -1,0 +1,6 @@
+alias sail="./vendor/bin/sail"
+alias vessel="./vessel"
+alias a="php artisan"
+alias tinker="php artisan tinker"
+alias serve="php artisan serve"
+alias mfs="php artisan migrate:fresh --seed"

@@ -1,0 +1,55 @@
+# Sample gitconfig
+#
+
+[hub]
+        protocol = https
+[user]
+        name = marcusmyers
+        email = marcusmyers@gmail.com
+[credential]
+        helper = cache
+[alias]
+	co = checkout
+        promote = !$ZSH/bin/git-promote
+        wtf     = !$ZSH/bin/git-wtf
+        rank-contributors = !$ZSH/bin/git-rank-contributors
+        count   = !git shortlog -sn
+	st = status
+	ci = commit
+	br = branch
+	cleanlocal = "!zsh -c 'BRANCH=`git current`; if [[ ! $BRANCH =~  ^master$ ]];then read \"?Are you sure you want to run while not in master (you run the risk of deleting master)? (y/n) \" choice; if [[ ! $choice =~ ^[Yy]$ ]]; then echo Nothing done; exit 0; fi ; fi; for stale_branch (`git branch --merged $BRANCH | grep -v $BRANCH`) git branch -d $stale_branch'"
+	current = !git rev-parse --abbrev-ref HEAD
+	some = !git checkout master && git pull --rebase && git remote prune origin && git cleanlocal
+	msome = !git checkout main && git pull --rebase && git remote prune origin && git cleanlocal
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+        ui = true
+	interactive = auto
+[core]
+	excludesfile = /home/mark/.gitignore
+        editor = vim
+[apply]
+        whitespace = nowarn
+[mergetool]
+        keepBackup = false
+[difftool]
+        prompt = false
+[help]
+        autocorrect = 1
+[push]
+        # See `git help config` (search for push.default)
+        # for more information on different options of the below setting.
+        #
+        # Setting to git 2.0 default to suppress warning message
+	default = current
+[merge]
+	summary = true
+[init]
+	templatedir = /home/mark/.dotfiles/git/templates
+	defaultBranch = main
+[branch]
+	autosetupmerge = true
+[web]
+	browser = chromium

@@ -1,0 +1,26 @@
+- defaults:
+    link:
+      relink: true
+      force: true
+
+- clean: ['~']
+
+- link:
+    ~/.alacritty.yml: alacritty.yml
+    ~/.config/composer/composer.json: composer/composer.json
+    ~/.config/i3: i3
+    ~/.config/i3status: i3status
+    ~/.config/nvim: nvim
+    ~/.gitconfig: git/gitconfig
+    ~/.gitignore: git/gitignore
+    ~/.tmux.conf: tmux.conf
+    ~/.p10k.zsh: p10k.zsh
+    ~/.zshrc: zshrc
+
+- shell:
+  - [git submodule update --init --recursive, Installing submodules]
+  - [git/setup_defaults]
+  - [fonts/install.sh]
+  - [composer global install]
+  - [homebrew/install.sh]
+
