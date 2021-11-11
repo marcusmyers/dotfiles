@@ -160,6 +160,7 @@ source ~/.config/nvim/plugins/targets.vim
 "source ~/.config/nvim/plugins/textobj-xmlattr.vim
 "source ~/.config/nvim/plugins/unimpaired.vim
 source ~/.config/nvim/plugins/vim-test.vim
+"source ~/.config/nvim/plugins/nvim-tmux-navigation.vim
 "source ~/.config/nvim/plugins/visual-multi.vim
 "source ~/.config/nvim/plugins/visual-star-search.vim
 "source ~/.config/nvim/plugins/which-key.vim
