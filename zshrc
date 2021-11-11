@@ -91,7 +91,7 @@
 # Interactive shell startup scripts {{{
 # ==============================================================================
 
-    if [[ $- == *i* && $0 == '/bin/zsh' ]]; then
+    if [[ $- == *i* && $0 == '/usr/bin/zsh' ]]; then
         ~/.dotfiles/scripts/login.sh
     fi
 
