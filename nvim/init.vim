@@ -64,7 +64,7 @@ nmap <leader>ve :edit ~/.config/nvim/init.vim<cr>
 nmap <leader>vc :edit ~/.config/nvim/coc-settings.json<cr>
 nmap <leader>vr :source ~/.config/nvim/init.vim<cr>
 
-nmap <leader>k :nohlsearch<CR>
+nmap <leader><space> :nohlsearch<CR>
 nmap <leader>Q :bufdo bdelete<cr>
 
 " Allow gf to open non-existent files

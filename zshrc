@@ -28,6 +28,17 @@
     eval $(ssh-agent)
     ssh-add -k
   fi
+# }}}
+
+# Interactive shell startup scripts {{{
+# ==============================================================================
+
+    if [[ $- == *i* && $0 == '/usr/bin/zsh' ]]; then
+        ~/.dotfiles/scripts/login.sh
+    fi
+
+# }}}
+
   # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
   # Initialization code that may require console input (password prompts, [y/n]
   # confirmations, etc.) must go above this block; everything else may go below.
@@ -85,15 +96,6 @@
 
   # load the function files
   for func_file ($DOTFILES/functions/*.functions.zsh(.N)) source $func_file
-
-# }}}
-
-# Interactive shell startup scripts {{{
-# ==============================================================================
-
-    if [[ $- == *i* && $0 == '/usr/bin/zsh' ]]; then
-        ~/.dotfiles/scripts/login.sh
-    fi
 
 # }}}
 
