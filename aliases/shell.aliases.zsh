@@ -2,6 +2,7 @@
 alias c='clear'
 alias e='exit'
 alias tf='tail -f'
+alias cat='batcat'
 
 # Environment Reloading
 reload_shell() {
