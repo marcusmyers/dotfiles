@@ -21,6 +21,8 @@
   - [git submodule update --init --recursive, Installing submodules]
   - [git/setup_defaults]
   - [fonts/install.sh]
-  - [composer global install]
   - [homebrew/install.sh]
+  - [composer/install.sh]
+  - [zsh/install.sh]
+  - [composer global install]
 

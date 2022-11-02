@@ -22,6 +22,7 @@ then
 
 # Install homebrew packages
 brew install grc coreutils spark
+brew bundle
 
 fi
 
