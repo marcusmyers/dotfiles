@@ -8,6 +8,6 @@ atom.symlink/themes
 atom.symlink/nohup.out
 
 git/gitconfig.symlink
-
+homebrew/Brewfile.lock.json
 private
 users/*/private/*
