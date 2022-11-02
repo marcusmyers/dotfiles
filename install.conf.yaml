@@ -13,7 +13,7 @@
     ~/.composer/composer.json:
       if: '[ `uname` = Darwin ]'
       path: composer/composer.json
-    ~/.config/i3: 
+    ~/.config/i3:
       if: '[ `uname` = Linux ]'
       path: i3
     ~/.config/i3status:
@@ -25,8 +25,15 @@
     ~/.tmux.conf: tmux.conf
     ~/.p10k.zsh: p10k.zsh
     ~/.zshrc: zshrc
-    ~/.yabairc: yabai/yabairc
-    ~/.skhdrc: skhd/skhdrc
+    ~/.yabairc:
+      if: '[ `uname` = Darwin ]'
+      path: yabai/yabairc
+    ~/.skhdrc:
+      if: '[ `uname` = Darwin ]'
+      path: skhd/skhdrc
+    ~/.config/sketchybar:
+      if: '[ `uname` = Darwin ]'
+      path: sketchybar
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
@@ -39,4 +46,13 @@
   - [homebrew/install.sh]
   - [composer/install.sh]
   - [composer global install]
+  -
+    if: '[ `uname` = Darwin ]'
+    command: brew services restart yabai
+  -
+    if: '[ `uname` = Darwin ]'
+    command: brew services restart skhd
+  -
+    if: '[ `uname` = Darwin ]'
+    command: brew services restart sketchybar
 

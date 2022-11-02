@@ -1,10 +1,16 @@
 #!/usr/bin/env zsh
 
-sudo yabai --load-sa
+declare -A color
+
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+sudo yabai --load-sa
 
 SPACEBAR_HEIGHT=$(sketchybar -m config height)
 yabai -m config external_bar all:0:$SPACEBAR_HEIGHT
+
+color[focused]="0xE02d74da"
+color[normal]=""
+color[preselect]="0xE02d74da"
 
 # global settings
 yabai -m config mouse_follows_focus          on
@@ -12,16 +18,24 @@ yabai -m config focus_follows_mouse          off
 yabai -m config window_placement             second_child
 yabai -m config window_topmost               off
 yabai -m config window_opacity               on
-yabai -m config window_opacity_duration      0.0
-yabai -m config window_shadow                on
+# yabai -m config window_opacity               on
+# yabai -m config window_opacity_duration      0.0
+yabai -m config window_shadow                float
 yabai -m config insert_feedback_color        0xaad75f5f
 yabai -m config active_window_opacity        1.0
-yabai -m config normal_window_opacity        0.65
+yabai -m config normal_window_opacity        0.75
 yabai -m config split_ratio                  0.50
-yabai -m config auto_balance                 off
+yabai -m config auto_balance                 on
 yabai -m config mouse_modifier               fn
 yabai -m config mouse_action1                move
 yabai -m config mouse_action2                resize
+# border around active window
+yabai -m config window_border               on
+yabai -m config window_border_width         4
+yabai -m config active_window_border_color  "${color[focused]}"
+yabai -m config normal_window_border_color  "${color[normal]}"
+yabai -m config insert_feedback_color       "${color[preselect]}"
+
 
 # mission-control desktop labels
 yabai -m space 1 --label sqm
@@ -30,14 +44,15 @@ yabai -m space 3 --label code
 yabai -m space 4 --label terminal
 yabai -m space 5 --label mail
 yabai -m space 6 --label social
+yabai -m space 7 --label docs
 
 # general space settings
 yabai -m config layout                       bsp
-yabai -m config top_padding                  30
-yabai -m config bottom_padding               10
+yabai -m config top_padding                  52
+yabai -m config bottom_padding               20
 yabai -m config left_padding                 20
 yabai -m config right_padding                20
-yabai -m config window_gap                   10
+yabai -m config window_gap                   20
 
 # float certain apps
 yabai -m rule --add app="^System Preferences$" manage=off
@@ -49,12 +64,13 @@ yabai -m rule --add app="^1Password$" manage=off
 yabai -m rule --add app="^Plexamp$" manage=off
 yabai -m rule --add app="^Viscosity$" manage=off
 yabai -m rule --add app="^Sequel Ace$" manage=off
+yabai -m rule --add app="^Table Plus$" manage=off
 yabai -m rule --add app="^Alfred Preferences$" manage=off
 yabai -m rule --add app="^Sonos$" manage=off
 yabai -m rule --add app="^Find My$" manage=off
+yabai -m rule --add app="^TablePlus$" manage=off
 
 # fix to float for child windows
-yabai -m rule --add app="^Sequel Ace$" title="^\(MySQL*" manage=off
 yabai -m rule --add app="^Twitter$" title="Media" manage=off
 yabai -m rule --add app="^Finder$" title="Copy" manage=off
 yabai -m rule --add app="^Viscosity$" title="Viscosity - in-diskstation-2018" manage=off
@@ -64,15 +80,19 @@ yabai -m rule --add app="^Viscosity$" title="Viscosity - fl-diskstation-2018" ma
 yabai -m rule --add app="^Firefox*" space=personal
 yabai -m rule --add app="^Slack$" space=sqm
 yabai -m rule --add app="^Google Chrome$" space=sqm
+yabai -m rule --add app="^Asana$" space=sqm
 yabai -m rule --add app="^Code$" space=code
 yabai -m rule --add app="^Alacritty$" space=terminal
+yabai -m rule --add app="^Warp$" space=terminal
 yabai -m rule --add app="^HEY$" space=mail
 yabai -m rule --add app="^Twitter$" space=social
-yabai -m rule --add app="^TweetDeck$" space=social
+yabai -m rule --add app="^Safari$" space=docs
 
 # S K E T C H Y B A R  E V E N T S
-yabai -m signal --add event=window_focused action="sketchybar -m trigger window_focus &> /dev/null"
-yabai -m signal --add event=window_title_changed action="sketchybar -m trigger title_change &> /dev/null"
+yabai -m signal --add event=window_focused action="sketchybar -m --trigger window_focus &> /dev/null"
+yabai -m signal --add event=window_title_changed action="sketchybar -m --trigger title_change &> /dev/null"
+yabai -m signal --add event=display_added action="sketchybar --update"
+yabai -m signal --add event=display_removed action="sketchybar --update"
 
 # signals
 yabai -m signal --add event=window_destroyed active=yes action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse &> /dev/null || yabai -m window --focus \$(yabai -m query --windows --space | jq .[0].id) &> /dev/null"
