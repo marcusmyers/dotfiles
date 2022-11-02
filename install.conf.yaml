@@ -25,9 +25,14 @@
     ~/.tmux.conf: tmux.conf
     ~/.p10k.zsh: p10k.zsh
     ~/.zshrc: zshrc
+    ~/.yabairc: yabai/yabairc
+    ~/.skhdrc: skhd/skhdrc
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
+  -
+    if: '[ `uname` = Darwin ]'
+    command: osx/set-defaults.sh
   - [git/setup_defaults]
   - [zsh/install.sh]
   - [fonts/install.sh]
