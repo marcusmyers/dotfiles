@@ -7,9 +7,18 @@
 
 - link:
     ~/.alacritty.yml: alacritty.yml
-    ~/.config/composer/composer.json: composer/composer.json
-    ~/.config/i3: i3
-    ~/.config/i3status: i3status
+    ~/.config/composer/composer.json:
+      if: '[ `uname` = Linux ]'
+      path: composer/composer.json
+    ~/.composer/composer.json:
+      if: '[ `uname` = Darwin ]'
+      path: composer/composer.json
+    ~/.config/i3: 
+      if: '[ `uname` = Linux ]'
+      path: i3
+    ~/.config/i3status:
+      if: '[ `uname` = Linux ]'
+      path: i3status
     ~/.config/nvim: nvim
     ~/.gitconfig: git/gitconfig
     ~/.gitignore: git/gitignore
@@ -20,9 +29,9 @@
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
   - [git/setup_defaults]
+  - [zsh/install.sh]
   - [fonts/install.sh]
   - [homebrew/install.sh]
   - [composer/install.sh]
-  - [zsh/install.sh]
   - [composer global install]
 

@@ -1,4 +1,4 @@
-if [ -z "$COMPOSER_HOME"]; then
+if [[ -z "$COMPOSER_HOME" ]]; then
   export COMPOSER_HOME="$XDG_CONFIG_HOME/composer"
 fi
 

@@ -10,5 +10,10 @@
         "nunomaduro/patrol": "^1.0",
         "statamic/cli": "^2.0",
         "ergebnis/composer-normalize": "^2.15"
+    },
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true
+        }
     }
 }
