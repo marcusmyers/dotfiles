@@ -37,8 +37,8 @@
         ~/.dotfiles/scripts/login.sh
     fi
 
-    if [[ $- == *i* && $0 == '/bin/zsh' ]]; then
-        ~/.dotfiles/scripts/login.sh
+    if [[ `echo $SHELL` == '/bin/zsh' ]]; then
+        ~/.dotfiles/scripts/login-mac.sh
     fi
 
 # }}}

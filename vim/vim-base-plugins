@@ -22,3 +22,4 @@ Plugin 'phpcomplete.vim'
 Plugin 'phpunit'
 Plugin 'php.vim'
 Plugin 'vim-json-bundle'
+Plugin 'rodrigore/coc-tailwind-intellisense', { 'do': 'npm install'}
