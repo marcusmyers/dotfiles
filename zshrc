@@ -37,6 +37,10 @@
         ~/.dotfiles/scripts/login.sh
     fi
 
+    if [[ $- == *i* && $0 == '/bin/zsh' ]]; then
+        ~/.dotfiles/scripts/login.sh
+    fi
+
 # }}}
 
   # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -52,7 +56,11 @@
   export ZSH_THEME="powerlevel10k/powerlevel10k"
   export DEFAULT_USER=$USER
   # your project folder that we can `c [tab]` to
+  if [[ `uname` == 'Darwin' ]]; then
+  export PROJECTS=$HOME/Documents/Code
+  else
   export PROJECTS=$HOME/Code
+  fi
   export PATH="$HOME/.bin:$PATH"
 
   plugins=(git)
