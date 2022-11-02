@@ -75,43 +75,31 @@ sketchybar -m --add item apple.logo left                                        
         label.padding_right=10 \
         click_script="pmset displaysleepnow; sketchybar -m --set apple.logo popup.drawing=off"
 
-sketchybar -m --add space sqm left              \
-  --set sqm associated_space=1                  \
-      associated_display=1                      \
-      icon.font="Hack Nerd Font:Bold:20.0"      \
-      icon=                                    \
-      background.color="${default_label_color}" \
-      background.height=28                      \
-      icon.highlight_color=0xff48aa2a           \
-      label.highlight_color=0xff48aa2a          \
-      label=sqm                                 \
-      click_script="yabai -m space --focus 1"   \
-                                                \
-  --add space personal left                     \
+sketchybar -m --add space personal left                     \
   --set personal associated_display=1           \
-      associated_space=2                        \
+      associated_space=1                        \
       icon.highlight_color=0xfffab402           \
       label.highlight_color=0xfffab402          \
       background.color="${default_label_color}" \
       background.height=28                      \
       icon=􀉮                                    \
       label=personal                            \
-      click_script="yabai -m space --focus 2"   \
+      click_script="yabai -m space --focus 1"   \
                                                 \
   --add space code left                         \
   --set code  associated_display=1              \
-      associated_space=3                        \
+      associated_space=2                        \
       icon.highlight_color=0xff7fe5f0           \
       label.highlight_color=0xff7fe5f0          \
       background.color="${default_label_color}" \
       background.height=28                      \
       icon=                                    \
       label=code                                \
-      click_script="yabai -m space --focus 3"   \
+      click_script="yabai -m space --focus 2"   \
                                                 \
   --add space terminal left                     \
   --set terminal associated_display=1           \
-      associated_space=4                        \
+      associated_space=3                        \
       icon.font="Hack Nerd Font:Bold:19.0"      \
       icon.highlight_color=0xfffff68f           \
       label.highlight_color=0xfffff68f          \
@@ -119,24 +107,11 @@ sketchybar -m --add space sqm left              \
       background.height=28                      \
       icon=                                    \
       label=terminal                            \
-      click_script="yabai -m space --focus 4"   \
-                                                \
-  --add space hey left                          \
-  --set hey associated_display=1                \
-      associated_space=5                        \
-      icon.font="Hack Nerd Font:Bold:20.0"      \
-      background.color="${default_label_color}" \
-      background.height=28                      \
-      icon=                                    \
-      icon.highlight_color=0xff48aa2a           \
-      label.highlight_color=0xff48aa2a          \
-      label=hey                                 \
-      label.padding_right=10                    \
-      click_script="yabai -m space --focus 5"   \
+      click_script="yabai -m space --focus 3"   \
                                                 \
   --add space social left                       \
   --set social associated_display="${display_count}" \
-      associated_space=6                        \
+      associated_space=4                        \
       icon.highlight_color=0xfffab402           \
       label.highlight_color=0xfffab402          \
       label.padding_right=10                    \
@@ -144,19 +119,7 @@ sketchybar -m --add space sqm left              \
       background.height=28                      \
       icon=                                    \
       label=social                              \
-      click_script="yabai -m space --focus 6"   \
-  --add space docs left                       \
-  --set docs associated_display="${display_count}" \
-      associated_space=7                        \
-      icon.highlight_color=0xfffab402           \
-      label.highlight_color=0xfffab402          \
-      label.padding_right=10                    \
-      background.color="${default_label_color}" \
-      background.height=28                      \
-      icon=                                    \
-      label=docs                                \
-      click_script="yabai -m space --focus 7"
-
+      click_script="yabai -m space --focus 4"
 
 ############## CHANGE ITEM DEFAULTS ###############
 sketchybar -m --default \
@@ -199,18 +162,18 @@ sketchybar -m --add item clock_logo right      \
       background.padding_left=5            \
       background.height=28
 
-sketchybar -m --add item volume right \
-  --set volume script="${plugins}/volume.sh" \
-      background.color=0xff3B4252 \
-      background.height=28 \
-      label.padding_right=5 \
-      update_freq=5
+# sketchybar -m --add item volume right \
+  # --set volume script="${plugins}/volume.sh" \
+      # background.color=0xff3B4252 \
+      # background.height=28 \
+      # label.padding_right=5 \
+      # update_freq=5
 
-sketchybar -m --add item volume_logo right \
-  --set volume_logo icon= \
-      background.color=0xff81A1C1 \
-      background.height=28 \
-      background.padding_left=5
+# sketchybar -m --add item volume_logo right \
+  # --set volume_logo icon= \
+      # background.color=0xff81A1C1 \
+      # background.height=28 \
+      # background.padding_left=5
 
 sketchybar -m --add item battery right            \
   --set battery update_freq=15                    \
@@ -240,17 +203,17 @@ sketchybar -m --add item wifi_logo right \
       background.height=28 \
       background.padding_left=5
 
-sketchybar -m --add item vpn right \
-  --set vpn update_freq=10 \
-  --set vpn script="${plugins}/vpn.sh"
+# sketchybar -m --add item vpn right \
+  # --set vpn update_freq=10 \
+  # --set vpn script="${plugins}/vpn.sh"
 
-sketchybar -m --add item vpn_logo right
+# sketchybar -m --add item vpn_logo right
 
-sketchybar -m --add item vpn_aws right \
-  --set vpn_aws update_freq=10 \
-  --set vpn_aws script="${plugins}/vpn.sh"
+# sketchybar -m --add item vpn_aws right \
+  # --set vpn_aws update_freq=10 \
+  # --set vpn_aws script="${plugins}/vpn.sh"
 
-sketchybar -m --add item vpn_aws_logo right
+# sketchybar -m --add item vpn_aws_logo right
 
 sketchybar -m --add event bluetooth_change "com.apple.bluetooth.status" \
    --add item headphones right  \
@@ -261,18 +224,18 @@ sketchybar -m --add event bluetooth_change "com.apple.bluetooth.status" \
 
 sketchybar -m --add item headphones_logo right
 
-sketchybar -m --add item weather right \
-  --set weather update_freq=1800 \
-  --set weather associated_display=1 \
-  --set weather background.color="${default_label_color}" background.height=28 \
-  --set weather script="${plugins}/weather.sh" \
-  --set weather click_script="open https://darksky.net/forecast/41.3741,-84.156/us12/en"
+# sketchybar -m --add item weather right \
+  # --set weather update_freq=1800 \
+  # --set weather associated_display=1 \
+  # --set weather background.color="${default_label_color}" background.height=28 \
+  # --set weather script="${plugins}/weather.sh" \
+  # --set weather click_script="open https://darksky.net/forecast/41.3741,-84.156/us12/en"
 
-sketchybar -m --add item weather_logo right \
-  --set weather_logo icon=                 \
-        associated_display=1                \
-        background.height=28                \
-        background.color="${bright_orange}"
+# sketchybar -m --add item weather_logo right \
+  # --set weather_logo icon=                 \
+        # associated_display=1                \
+        # background.height=28                \
+        # background.color="${bright_orange}"
 
 
 ###################### CENTER ITEMS ###################

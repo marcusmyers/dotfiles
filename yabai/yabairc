@@ -38,13 +38,10 @@ yabai -m config insert_feedback_color       "${color[preselect]}"
 
 
 # mission-control desktop labels
-yabai -m space 1 --label sqm
-yabai -m space 2 --label personal
-yabai -m space 3 --label code
-yabai -m space 4 --label terminal
-yabai -m space 5 --label mail
-yabai -m space 6 --label social
-yabai -m space 7 --label docs
+yabai -m space 1 --label personal
+yabai -m space 2 --label code
+yabai -m space 3 --label terminal
+yabai -m space 4 --label social
 
 # general space settings
 yabai -m config layout                       bsp
@@ -73,20 +70,16 @@ yabai -m rule --add app="^TablePlus$" manage=off
 # fix to float for child windows
 yabai -m rule --add app="^Twitter$" title="Media" manage=off
 yabai -m rule --add app="^Finder$" title="Copy" manage=off
-yabai -m rule --add app="^Viscosity$" title="Viscosity - in-diskstation-2018" manage=off
-yabai -m rule --add app="^Viscosity$" title="Viscosity - fl-diskstation-2018" manage=off
 
 # open apps in their correct displays
 yabai -m rule --add app="^Firefox*" space=personal
-yabai -m rule --add app="^Slack$" space=sqm
-yabai -m rule --add app="^Google Chrome$" space=sqm
-yabai -m rule --add app="^Asana$" space=sqm
+yabai -m rule --add app="^Slack$" space=personal
+yabai -m rule --add app="^Asana$" space=personal
 yabai -m rule --add app="^Code$" space=code
-yabai -m rule --add app="^Alacritty$" space=terminal
 yabai -m rule --add app="^Warp$" space=terminal
-yabai -m rule --add app="^HEY$" space=mail
 yabai -m rule --add app="^Twitter$" space=social
-yabai -m rule --add app="^Safari$" space=docs
+yabai -m rule --add app="^Safari$" space=personal
+
 
 # S K E T C H Y B A R  E V E N T S
 yabai -m signal --add event=window_focused action="sketchybar -m --trigger window_focus &> /dev/null"
