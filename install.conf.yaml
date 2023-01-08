@@ -20,6 +20,7 @@
       if: '[ `uname` = Linux ]'
       path: i3status
     ~/.config/nvim: nvim
+    ~/.config/kitty: kitty
     ~/.gitconfig: git/gitconfig
     ~/.gitignore: git/gitignore
     ~/.tmux.conf: tmux.conf

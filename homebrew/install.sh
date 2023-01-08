@@ -13,17 +13,15 @@ then
   then
     echo "  Installing Homebrew for you."
 
-  # Install the correct homebrew for each OS type
-  if test "$(uname)" = "Darwin"
-  then
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    # Install the correct homebrew for each OS type
+    if test "$(uname)" = "Darwin"
+    then
+      ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    fi
   fi
-  fi
-
-# Install homebrew packages
-brew install grc coreutils spark
-brew bundle --file=homebrew/Brewfile
-
+  # Install homebrew packages
+  brew install grc coreutils spark
+  brew bundle --file=homebrew/Brewfile
 fi
 
 exit 0
