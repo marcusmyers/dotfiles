@@ -1,13 +1,6 @@
 local dashboard = require('dashboard')
 
 dashboard.custom_header = {
---  '',
---  '',
---  '  ⢸⣦⡈⠻⣿⣿⣿⣶⣄',
---  '    ⢸⣿⣿⣦⡈⠻⣿⣿⣿⣷⣄',
---  '⣀⣀⣀⣀⣀⣀⣼⣿⣿⣿⣿ ⠈⠻⣿⣿⣿⣷⣄',
---  '  ⠈⠻⣿⣿⣿⣿⣿⡿⠿⠛⠁   ⠈⠻⢿⣿⣿⣷⣄',
---  '',
 '  MMMMMMMM               MMMMMMMM                                  ', 
 '  M::::::::M           M::::::::M                                  ', 
 '  M:::::::::M         M:::::::::M                                  ', 

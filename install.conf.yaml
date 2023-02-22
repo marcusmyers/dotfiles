@@ -6,7 +6,6 @@
 - clean: ['~']
 
 - link:
-    ~/.alacritty.yml: alacritty.yml
     ~/.config/composer/composer.json:
       if: '[ `uname` = Linux ]'
       path: composer/composer.json
