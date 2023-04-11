@@ -1,9 +1,10 @@
 #!/bin/bash
 
+display_width=$(yabai -m query --displays | jq '.[].frame.w')
 status=$(curl -s 'wttr.in/Napoleon?format=%C+|+%t')
 condition=$(echo $status | awk -F '|' '{print $1}' | tr '[:upper:]' '[:lower:]')
-condition="${condition// /}"
 temp=$(echo $status | awk -F '|' '{print $2}')
+condition="${condition// /}"
 temp="${temp//\+/}"
 temp="${temp// /}"
 
@@ -26,5 +27,12 @@ case "${condition}" in
     ;;
 esac
 
-sketchybar -m --set weather icon="$icon"
-sketchybar -m --set weather label="$temp"
+if [[ $display_width > 1440 ]]; then
+  sketchybar --set weather drawing=on
+  sktechybar --set weather_logo drawing=on
+  sketchybar -m --set weather icon="$icon"
+  sketchybar -m --set weather label="$temp"
+else
+  sketchybar --set weather drawing=off
+  sktechybar --set weather_logo drawing=off
+fi
