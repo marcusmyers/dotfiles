@@ -27,12 +27,12 @@ case "${condition}" in
     ;;
 esac
 
-if [[ $display_width > 1440 ]]; then
+if [[ $display_width > 1600 ]]; then
   sketchybar --set weather drawing=on
-  sktechybar --set weather_logo drawing=on
+  sketchybar --set weather_logo drawing=on
   sketchybar -m --set weather icon="$icon"
   sketchybar -m --set weather label="$temp"
 else
   sketchybar --set weather drawing=off
-  sktechybar --set weather_logo drawing=off
+  sketchybar --set weather_logo drawing=off
 fi
