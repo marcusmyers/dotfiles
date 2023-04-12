@@ -42,6 +42,7 @@ yabai -m space 1 --label personal
 yabai -m space 2 --label code
 yabai -m space 3 --label terminal
 yabai -m space 4 --label social
+yabai -m space 5 --label docs
 
 # general space settings
 yabai -m config layout                       bsp
@@ -73,13 +74,15 @@ yabai -m rule --add app="^Finder$" title="Copy" manage=off
 
 # open apps in their correct displays
 yabai -m rule --add app="^Firefox*" space=personal
-yabai -m rule --add app="^Slack$" space=personal
+yabai -m rule --add app="*Chrome*" space=personal
+yabai -m rule --add app="^Slack$" space=social
 yabai -m rule --add app="^Asana$" space=personal
 yabai -m rule --add app="^Code$" space=code
 yabai -m rule --add app="^Warp$" space=terminal
 yabai -m rule --add app="^Alacritty$" space=terminal
+yabai -m rule --add app="^kitty$" space=terminal
 yabai -m rule --add app="^Twitter$" space=social
-yabai -m rule --add app="^Safari$" space=personal
+yabai -m rule --add app="^Safari$" space=docs
 
 
 # S K E T C H Y B A R  E V E N T S
