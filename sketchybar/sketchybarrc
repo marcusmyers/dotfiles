@@ -110,7 +110,7 @@ sketchybar -m --add space personal left                     \
       click_script="yabai -m space --focus 3"   \
                                                 \
   --add space social left                       \
-  --set social associated_display="${display_count}" \
+  --set social associated_display=1             \
       associated_space=4                        \
       icon.highlight_color=0xfffab402           \
       label.highlight_color=0xfffab402          \
@@ -119,7 +119,20 @@ sketchybar -m --add space personal left                     \
       background.height=28                      \
       icon=                                    \
       label=social                              \
-      click_script="yabai -m space --focus 4"
+      click_script="yabai -m space --focus 4"   \
+                                                \
+  --add space docs left                         \
+  --set docs associated_display=1               \
+      associated_space=5                        \
+      icon.highlight_color=0xfffab402           \
+      label.highlight_color=0xfffab402          \
+      label.padding_right=10                    \
+      background.color="${default_label_color}" \
+      background.height=28                      \
+      icon=                                    \
+      label=docs                                \
+      click_script="yabai -m space --focus 5"
+
 
 ############## CHANGE ITEM DEFAULTS ###############
 sketchybar -m --default \
