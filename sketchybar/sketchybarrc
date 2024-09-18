@@ -1,146 +1,35 @@
 #                          ﱦ 齃     ﮂ  ﵁ 爵        ﭵ     ﱦ  ﰊ 異 ﴱ אַ  'Y⃣'
 
-# colors
-transparent_color="0x00000000"
-power_color="0xFF5DFE67"
-default_label_color="0xff3B4252"
-calendar_color="0xff5E81AC"
-red_color="0xffBF616A"
-mem_background_color="0xff1a212e"
-orange_color="0xffD08770"
-bright_orange="0xffEBCB8B"
+# Colors
+source $HOME/.config/sketchybar/colors.sh
 
 # Variabless
 plugins="$HOME/.config/sketchybar/plugins"
+items="$HOME/.config/sketchybar/items"
+config="$HOME/.config/sketchybar/config"
 display_count="$(yabai -m query --displays | jq -r 'length')"
 
 # E V E N T S
 sketchybar -m --add event window_focus \
               --add event title_change
 
-############## BAR ##############
-sketchybar -m --bar height=32      \
-  border_color=${bar_border_color} \
-  border_width=0                   \
-  corner_radius=8                  \
-  color=${transparent_color}       \
-  blur_radius=50                   \
-  position=top                     \
-  padding_left=10                  \
-  padding_right=10                 \
-  margin=8                         \
-  shadow=off                       \
-  y_offset=4
-
 ############## GLOBAL DEFAULTS ##############
-sketchybar -m --default updates=on                            \
-                        drawing=on                            \
-                        cache_scripts=on                      \
-                        icon.font="Hack Nerd Font:Bold:17.0"  \
-                        icon.color=0xffffffff                 \
-                        label.font="Hack Nerd Font:Bold:14.0" \
-                        label.color=0xffffffff
+source $config/defaults.sh
 
 ############## SPACE DEFAULTS ##############
-sketchybar -m --default label.padding_left=2  \
-                        label.padding_right=2 \
-                        icon.padding_left=8   \
-                        icon.padding_right=8
+source $config/space-defaults.sh
 
 ############## PRIMARY DISPLAY SPACES ##############
-sketchybar -m --add item apple.logo left                                          \
-  --set apple.logo icon=􀣺                                                         \
-                   icon.font="SF Pro:Black:16.0"                                  \
-                   background.color="${red_color}"                                \
-                   background.height=28                                           \
-                   label.drawing=off                                              \
-                   click_script="sketchybar -m --set \$NAME popup.drawing=toggle" \
-                   popup.background.border_width=2                                \
-                   popup.background.corner_radius=3                               \
-                   popup.background.border_color=0xff9dd274                       \
-                                                                                  \
-  --add item apple.preferences popup.apple.logo                                   \
-  --set apple.preferences icon=􀺽                                                  \
-        label="Preferences"                                                       \
-        click_script="open -a 'System Preferences'; sketchybar -m --set apple.logo popup.drawing=off" \
-        label.padding_right=10 \
-  --add item apple.activity popup.apple.logo                                      \
-  --set apple.activity icon=􀒓                                                     \
-        label="Activity"                                                          \
-        click_script="open -a 'Activity Monitor'; sketchybar -m --set apple.logo popup.drawing=off" \
-        label.padding_right=10 \
-  --add item apple.lock popup.apple.logo                                          \
-  --set apple.lock icon=􀒳                                                         \
-        label="Lock Screen"                                                       \
-        label.padding_right=10 \
-        click_script="pmset displaysleepnow; sketchybar -m --set apple.logo popup.drawing=off"
+source $items/apple_preferences.sh
 
-sketchybar -m --add space personal left                     \
-  --set personal associated_display=1           \
-      associated_space=1                        \
-      icon.highlight_color=0xfffab402           \
-      label.highlight_color=0xfffab402          \
-      background.color="${default_label_color}" \
-      background.height=28                      \
-      icon=􀉮                                    \
-      label=personal                            \
-      click_script="yabai -m space --focus 1"   \
-                                                \
-  --add space code left                         \
-  --set code  associated_display=1              \
-      associated_space=2                        \
-      icon.highlight_color=0xff7fe5f0           \
-      label.highlight_color=0xff7fe5f0          \
-      background.color="${default_label_color}" \
-      background.height=28                      \
-      icon=                                    \
-      label=code                                \
-      click_script="yabai -m space --focus 2"   \
-                                                \
-  --add space terminal left                     \
-  --set terminal associated_display=1           \
-      associated_space=3                        \
-      icon.font="Hack Nerd Font:Bold:19.0"      \
-      icon.highlight_color=0xfffff68f           \
-      label.highlight_color=0xfffff68f          \
-      background.color="${default_label_color}" \
-      background.height=28                      \
-      icon=                                    \
-      label=terminal                            \
-      click_script="yabai -m space --focus 3"   \
-                                                \
-  --add space social left                       \
-  --set social associated_display=1             \
-      associated_space=4                        \
-      icon.highlight_color=0xfffab402           \
-      label.highlight_color=0xfffab402          \
-      label.padding_right=10                    \
-      background.color="${default_label_color}" \
-      background.height=28                      \
-      icon=                                    \
-      label=social                              \
-      click_script="yabai -m space --focus 4"   \
-                                                \
-  --add space docs left                         \
-  --set docs associated_display=1               \
-      associated_space=5                        \
-      icon.highlight_color=0xfffab402           \
-      label.highlight_color=0xfffab402          \
-      label.padding_right=10                    \
-      background.color="${default_label_color}" \
-      background.height=28                      \
-      icon=                                    \
-      label=docs                                \
-      click_script="yabai -m space --focus 5"
-
+source $items/browse.sh
+source $items/terminal.sh
+source $items/social.sh
+source $items/docs.sh
+source $items/slack.sh
 
 ############## CHANGE ITEM DEFAULTS ###############
-sketchybar -m --default \
-  label.padding_left=2  \
-  icon.padding_right=2  \
-  icon.padding_left=6   \
-  label.padding_right=6
-
+source $config/less-icon-label-padding.sh
 
 ############## LEFT ITEMS, AFTER WORKSPACES ##############
 # sketchybar -m --add item mem_logo left           \
@@ -162,93 +51,12 @@ sketchybar -m --default \
       # script="${plugins}/topmem.sh"
 
 ############## RIGHT ITEMS ##############
-sketchybar -m --add item clock right \
-  --set clock update_freq=5                          \
-      script="${plugins}/clock.sh" \
-      label.padding_left=0                           \
-      background.color="${default_label_color}"      \
-      background.height=28
-
-sketchybar -m --add item clock_logo right      \
-  --set clock_logo icon=                  \
-      background.color="${calendar_color}" \
-      background.padding_left=5            \
-      background.height=28
-# sketchybar -m --add item volume right \
-  # --set volume script="${plugins}/volume.sh" \
-      # background.color=0xff3B4252 \
-      # background.height=28 \
-      # label.padding_right=5 \
-      # update_freq=5
-
-# sketchybar -m --add item volume_logo right \
-  # --set volume_logo icon= \
-      # background.color=0xff81A1C1 \
-      # background.height=28 \
-      # background.padding_left=5
-
-sketchybar -m --add item battery right            \
-  --set battery update_freq=15                    \
-        associated_display=1                      \
-        script="${plugins}/power.sh"              \
-        background.color="${default_label_color}" \
-        background.height=28
-
-sketchybar -m --add item power_logo right             \
-              --set power_logo \ #icon=⏻              \
-                    associated_display=1              \
-                    background.color="${power_color}" \
-                    background.height=28              \
-                    background.padding_left=5
-
-sketchybar -m --add item wifi right \
-  --set wifi update_freq=15 \
-     associated_display=1 \
-     background.color="${default_label_color}" \
-     background.height=28 \
-     script="${plugins}/network.sh"
-
-sketchybar -m --add item wifi_logo right \
-  --set wifi_logo icon=\
-      associated_display=1 \
-      background.color="${orange_color}" \
-      background.height=28 \
-      background.padding_left=5
-
-# sketchybar -m --add item vpn right \
-  # --set vpn update_freq=10 \
-  # --set vpn script="${plugins}/vpn.sh"
-
-# sketchybar -m --add item vpn_logo right
-
-# sketchybar -m --add item vpn_aws right \
-  # --set vpn_aws update_freq=10 \
-  # --set vpn_aws script="${plugins}/vpn.sh"
-
-# sketchybar -m --add item vpn_aws_logo right
-
-sketchybar -m --add event bluetooth_change "com.apple.bluetooth.status" \
-   --add item headphones right  \
-   --set headphones update_freq=5 \ #icon= \
-     associated_display=1 \
-     script="${plugins}/ble_headset.sh" \
-   --subscribe headphones bluetooth_change
-
-sketchybar -m --add item headphones_logo right
-
-sketchybar -m --add item weather right \
-   --set weather update_freq=1800 \
-   --set weather associated_display=1 \
-   --set weather background.color="${default_label_color}" background.height=28 \
-   --set weather script="${plugins}/weather.sh" \
-   --set weather click_script="open https://darksky.net/forecast/41.3741,-84.156/us12/en"
-
-sketchybar -m --add item weather_logo right \
-   --set weather_logo icon=                 \
-         associated_display=1                \
-         background.height=28                \
-         background.color="${bright_orange}"
-
+source $items/clock.sh
+source $items/volume.sh
+source $items/battery.sh
+source $items/wifi.sh
+source $items/weather.sh
+source $items/bluetooth.sh
 
 ###################### CENTER ITEMS ###################
 # W I N D O W  T I T L E

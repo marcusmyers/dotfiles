@@ -1,7 +1,7 @@
 #!/bin/bash
 
 display_width=$(yabai -m query --displays | jq '.[].frame.w')
-status=$(curl -s 'wttr.in/Napoleon?format=%C+|+%t')
+status=$(curl -s 'wttr.in/Napoleon?u&format=%c+|+%t')
 condition=$(echo $status | awk -F '|' '{print $1}' | tr '[:upper:]' '[:lower:]')
 temp=$(echo $status | awk -F '|' '{print $2}')
 condition="${condition// /}"
