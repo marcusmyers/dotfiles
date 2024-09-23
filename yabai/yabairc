@@ -59,13 +59,9 @@ yabai -m rule --add app="^System Settings$" manage=off
 yabai -m rule --add app="^Docker Desktop$" manage=off
 yabai -m rule --add app="^Messages$" manage=off
 yabai -m rule --add app="^Finder$" manage=off
-yabai -m rule --add app="^Authy Desktop$" manage=off
 yabai -m rule --add app="^1Password$" manage=off
 yabai -m rule --add app="^Plexamp$" manage=off
-yabai -m rule --add app="^Viscosity$" manage=off
-yabai -m rule --add app="^Sequel Ace$" manage=off
 yabai -m rule --add app="^Table Plus$" manage=off
-yabai -m rule --add app="^Alfred Preferences$" manage=off
 yabai -m rule --add app="^Sonos$" manage=off
 yabai -m rule --add app="^Find My$" manage=off
 yabai -m rule --add app="^TablePlus$" manage=off
@@ -77,7 +73,7 @@ yabai -m rule --add app="^Finder$" title="Copy" manage=off
 # open apps in their correct displays
 yabai -m rule --add app="^Firefox*" space=browse
 yabai -m rule --add app="*Chrome*" space=browse
-yabai -m rule --add app="^Slack$" space=social
+yabai -m rule --add app="^Slack$" space=slack
 yabai -m rule --add app="^Asana$" space=browse
 yabai -m rule --add app="^kitty$" space=terminal
 yabai -m rule --add app="^Twitter$" space=social
