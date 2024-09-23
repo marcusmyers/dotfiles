@@ -100,3 +100,7 @@ alt - t : yabai -m window --toggle float;\
 alt - p : yabai -m window --toggle sticky;\
           yabai -m window --toggle topmost;\
           yabai -m window --toggle pip
+
+alt - s : sketchybar --reload
+
+alt - y : yabai --restart-service

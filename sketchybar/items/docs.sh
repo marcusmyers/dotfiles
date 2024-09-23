@@ -1,8 +1,7 @@
 #!/bin/zsh
 
 skethchybar -m --add space docs left            \
-  --set docs associated_display="${display_count}" \
-      associated_space=4                        \
+  --set docs associated_space=4                 \
       icon.highlight_color=0xfffab402           \
       label.highlight_color=0xfffab402          \
       label.padding_right=10                    \

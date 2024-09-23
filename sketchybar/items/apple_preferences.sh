@@ -27,3 +27,4 @@ sketchybar -m --add item apple.logo left                                        
         label="Lock Screen"                                                       \
         label.padding_right=10 \
         click_script="pmset displaysleepnow; sketchybar -m --set apple.logo popup.drawing=off"
+

@@ -1,8 +1,7 @@
 #!/bin/zsh
 
 sketchybar -m --add space terminal left         \
-  --set terminal associated_display=1           \
-      associated_space=2                        \
+  --set terminal associated_space=2             \
       icon.font="Hack Nerd Font:Bold:19.0"      \
       icon.highlight_color=0xfffff68f           \
       label.highlight_color=0xfffff68f          \

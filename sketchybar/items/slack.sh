@@ -1,8 +1,7 @@
 #!/bin/zsh
 
 sketchybar -m --add space slack left            \
-  --set slack associated_display="${display_count}" \
-      associated_space=5                        \
+  --set slack associated_space=5                \
       icon.highlight_color=0xfffab402           \
       label.highlight_color=0xfffab402          \
       label.padding_right=10                    \

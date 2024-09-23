@@ -9,6 +9,7 @@ return {
       ignore = false,
     },
     view = {
+      side = "right",
       width = 40,
     },
     renderer = {
