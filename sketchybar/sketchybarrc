@@ -60,20 +60,20 @@ source $items/bluetooth.sh
 
 ###################### CENTER ITEMS ###################
 # W I N D O W  T I T L E
-sketchybar -m --add item title center \
-  --set title script="${plugins}/window_title.sh" \
-  --subscribe title window_focus front_app_switched space_change title title_change
+# sketchybar -m --add item title center \
+#   --set title script="${plugins}/window_title.sh" \
+#   --subscribe title window_focus front_app_switched space_change title title_change
 
-sketchybar                                      \
-  --add bracket center                          \
-    title                                       \
-  --set center                                  \
-    background.color="${default_label_color}"   \
-    background.border_width=1                   \
-    background.border_color="${calendar_color}" \
-    background.corner_radius=6                  \
-    background.height=28                        \
-    corner_radius=8
+# sketchybar                                      \
+#   --add bracket center                          \
+#     title                                       \
+#   --set center                                  \
+#     background.color="${default_label_color}"   \
+#     background.border_width=1                   \
+#     background.border_color="${calendar_color}" \
+#     background.corner_radius=6                  \
+#     background.height=28                        \
+#     corner_radius=8
 
 ############## FINALIZING THE SETUP ##############
 sketchybar -m --update
