@@ -1,3 +1,4 @@
+#!/bin/zsh
 #                          ﱦ 齃     ﮂ  ﵁ 爵        ﭵ     ﱦ  ﰊ 異 ﴱ אַ  'Y⃣'
 
 # Colors
@@ -8,6 +9,7 @@ plugins="$HOME/.config/sketchybar/plugins"
 items="$HOME/.config/sketchybar/items"
 config="$HOME/.config/sketchybar/config"
 display_count="$(yabai -m query --displays | jq -r 'length')"
+model=$(system_profiler SPHardwareDataType | grep 'Model Name:' | awk '/ / {print $3}')
 
 # E V E N T S
 sketchybar -m --add event window_focus \

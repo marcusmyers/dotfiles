@@ -8,6 +8,9 @@ if [[ $CHARGING != "" && $BATT_PERCENT != "" ]]; then
   sketchybar -m --set power_logo icon=􀢋
 
   exit 0
+else
+  sketchybar -m --set battery label=""
+  exit 0
 fi
 
 case ${BATT_PERCENT} in
