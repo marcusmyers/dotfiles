@@ -15,6 +15,12 @@
     ~/.config/i3:
       if: '[ `uname` = Linux ]'
       path: i3
+    ~/.config/hypr:
+      if: '[ `uname` = Linux ]'
+      path: hypr
+    ~/.config/waybar:
+      if: '[ `uname` = Linux ]'
+      path: waybar
     ~/.config/i3status:
       if: '[ `uname` = Linux ]'
       path: i3status
