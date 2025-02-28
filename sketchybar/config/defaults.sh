@@ -4,6 +4,8 @@
 #   bar_height=52
 # else
 bar_height=32
+icon_font_size="22.0"
+label_font_size="16.0"
 # fi
 
 ############## BAR ##############
