@@ -30,7 +30,6 @@
     ~/.gitconfig: git/gitconfig
     ~/.gitignore: git/gitignore
     ~/.tmux.conf: tmux.conf
-    ~/.p10k.zsh: p10k.zsh
     ~/.zshrc: zshrc
     ~/.config/aerospace:
       if: '[ `uname` = Darwin ]'
