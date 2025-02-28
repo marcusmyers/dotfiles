@@ -24,6 +24,7 @@
     ~/.config/i3status:
       if: '[ `uname` = Linux ]'
       path: i3status
+    ~/.config/oh-my-posh: oh-my-posh
     ~/.config/nvim: nvim
     ~/.config/kitty: kitty
     ~/.gitconfig: git/gitconfig
