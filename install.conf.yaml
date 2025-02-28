@@ -54,7 +54,7 @@
   - [composer global install]
   -
     if: '[ `uname` = Darwin ]'
-    command: brew services restart skhd
+    command: skhd --start-service
   -
     if: '[ `uname` = Darwin ]'
     command: brew services restart sketchybar
