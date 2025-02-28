@@ -31,9 +31,9 @@
     ~/.tmux.conf: tmux.conf
     ~/.p10k.zsh: p10k.zsh
     ~/.zshrc: zshrc
-    ~/.yabairc:
+    ~/.config/aerospace:
       if: '[ `uname` = Darwin ]'
-      path: yabai/yabairc
+      path: aerospace
     ~/.skhdrc:
       if: '[ `uname` = Darwin ]'
       path: skhd/skhdrc
@@ -52,9 +52,6 @@
   - [homebrew/install.sh]
   - [composer/install.sh]
   - [composer global install]
-  -
-    if: '[ `uname` = Darwin ]'
-    command: brew services restart yabai
   -
     if: '[ `uname` = Darwin ]'
     command: brew services restart skhd

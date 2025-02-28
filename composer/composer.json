@@ -1,15 +1,12 @@
 {
     "require": {
         "laravel/envoy": "^2.6",
-        "laravel/installer": "^4.0",
-        "beyondcode/expose": "^2.0",
-        "tightenco/takeout": "^2.4",
-        "nunomaduro/laracon-schedule": "^1.8",
-        "cpx/cpx": "^0.1.3",
-        "themsaid/ibis": "^0.1.4",
+        "laravel/installer": "^5.0",
+        "tightenco/takeout": "^3.0",
+        "cpx/cpx": "^1.0",
         "nunomaduro/patrol": "^1.0",
-        "statamic/cli": "^2.0",
-        "ergebnis/composer-normalize": "^2.15"
+        "ergebnis/composer-normalize": "^2.15",
+        "beyondcode/expose": "^2.6"
     },
     "config": {
         "allow-plugins": {
