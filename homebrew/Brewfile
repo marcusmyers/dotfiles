@@ -14,6 +14,7 @@ tap "nicoverbruggen/cask"
 tap "sigstore/tap"
 tap "stripe/stripe-cli"
 brew "bat"
+brew "borders"
 brew "php", restart_service: true
 brew "composer"
 brew "coreutils"
