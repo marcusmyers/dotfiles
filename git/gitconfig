@@ -28,7 +28,7 @@
         ui = true
 	interactive = auto
 [core]
-	excludesfile = /Users/mark/.gitignore
+	excludesfile = /home/mark/.gitignore
         editor = vim
 [apply]
         whitespace = nowarn
@@ -47,9 +47,9 @@
 [merge]
 	summary = true
 [init]
-	templatedir = /Users/mark/.dotfiles/git/templates
+	templatedir = /home/mark/.dotfiles/git/templates
 	defaultBranch = main
 [branch]
 	autosetupmerge = true
 [web]
-	browser = open
+	browser = chromium

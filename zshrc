@@ -46,7 +46,6 @@
   # shortcut to this dotfiles path is $DOTFILES
   export ZSH=$HOME/.oh-my-zsh
   export DOTFILES=$HOME/.dotfiles
-  export ZSH_THEME="powerlevel10k/powerlevel10k"
   export DEFAULT_USER=$USER
   # your project folder that we can `c [tab]` to
   if [[ `uname` == 'Darwin' ]]; then
@@ -94,6 +93,3 @@
 # }}}
 
 # vim: set nospell foldmethod=marker foldlevel=0:
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

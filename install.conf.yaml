@@ -12,18 +12,24 @@
     ~/.composer/composer.json:
       if: '[ `uname` = Darwin ]'
       path: composer/composer.json
-    ~/.config/i3:
+    ~/.config/hypr/autostart.conf:
       if: '[ `uname` = Linux ]'
-      path: i3
-    ~/.config/hypr:
+      path: hypr/autostart.conf
+    ~/.config/hypr/bindings.conf:
       if: '[ `uname` = Linux ]'
-      path: hypr
+      path: hypr/bindings.conf
+    ~/.config/hypr/envs.conf:
+      if: '[ `uname` = Linux ]'
+      path: hypr/envs.conf
+    ~/.config/hypr/input.conf:
+      if: '[ `uname` = Linux ]'
+      path: hypr/input.conf
+    ~/.config/hypr/monitors.conf:
+      if: '[ `uname` = Linux ]'
+      path: hypr/monitors.conf
     ~/.config/waybar:
       if: '[ `uname` = Linux ]'
       path: waybar
-    ~/.config/i3status:
-      if: '[ `uname` = Linux ]'
-      path: i3status
     ~/.config/oh-my-posh: oh-my-posh
     ~/.config/nvim: nvim
     ~/.config/kitty: kitty

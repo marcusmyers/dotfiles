@@ -31,4 +31,4 @@ MMMMMMMM               MMMMMMMM   ooooooooooo xxxxxxx      xxxxxxx
  $rootUsed/$rootTotal   $memUsed/$memTotal   $cpuTemp  辰$loadAvg
 
       Greetings Mark, welcome back!
-" | lolcat-c
+" | lolcat
