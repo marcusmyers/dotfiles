@@ -29,7 +29,7 @@ return {
         'diff',
         separator,
         function ()
-          return '🖧  ' .. vim.pesc(tostring(#vim.tbl_keys(vim.lsp.buf_get_clients())) or '')
+          return '🖧  ' .. vim.pesc(tostring(#vim.tbl_keys(vim.lsp.get_clients())) or '')
         end,
         { 'diagnostics', sources = { 'nvim_diagnostic' } },
         separator,

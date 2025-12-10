@@ -2,5 +2,4 @@
 
 set -e
 
-stow .
-
+stow -t $HOME --verbose=2 --adopt .

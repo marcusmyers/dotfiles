@@ -4,7 +4,7 @@ return {
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
     'b0o/schemastore.nvim',
-    { 'jose-elias-alvarez/null-ls.nvim', dependencies = 'nvim-lua/plenary.nvim' },
+    'nvimtools/none-ls.nvim',
     'jayp0521/mason-null-ls.nvim',
   },
   config = function()
@@ -15,7 +15,7 @@ return {
     local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
     -- PHP
-    require('lspconfig').intelephense.setup({
+    vim.lsp.config('intelephense', {
       commands = {
         IntelephenseIndex = {
           function()
@@ -33,7 +33,7 @@ return {
       capabilities = capabilities
     })
 
-    require('lspconfig').phpactor.setup({
+    vim.lsp.config('phpactor', {
       capabilities = capabilities,
       on_attach = function(client, bufnr)
         client.server_capabilities.completionProvider = false
@@ -61,7 +61,7 @@ return {
     })
 
     -- Vue, JavaScript, TypeScript
-    require('lspconfig').volar.setup({
+    vim.lsp.config('volar', {
       on_attach = function(client, bufnr)
         client.server_capabilities.documentFormattingProvider = false
         client.server_capabilities.documentRangeFormattingProvider = false
@@ -76,10 +76,10 @@ return {
     })
 
     -- Tailwind CSS
-    require('lspconfig').tailwindcss.setup({ capabilities = capabilities })
+    vim.lsp.config('tailwindcss', { capabilities = capabilities })
 
     -- JSON
-    require('lspconfig').jsonls.setup({
+    vim.lsp.config('jsonls', {
       capabilities = capabilities,
       settings = {
         json = {
@@ -94,18 +94,18 @@ return {
     null_ls.setup({
       temp_dir = '/tmp',
       sources = {
-        null_ls.builtins.diagnostics.eslint_d.with({
-          condition = function(utils)
-            return utils.root_has_file({ '.eslintrc.js' })
-          end,
-        }),
+        -- null_ls.builtins.diagnostics.eslint_d.with({
+        --   condition = function(utils)
+        --     return utils.root_has_file({ '.eslintrc.js' })
+        --   end,
+        -- }),
         -- null_ls.builtins.diagnostics.phpstan, -- TODO: Only if config file
         null_ls.builtins.diagnostics.trail_space.with({ disabled_filetypes = { 'NvimTree' } }),
-        null_ls.builtins.formatting.eslint_d.with({
-          condition = function(utils)
-            return utils.root_has_file({ '.eslintrc.js', '.eslintrc.json' })
-          end,
-        }),
+        -- null_ls.builtins.formatting.eslint_d.with({
+        --   condition = function(utils)
+        --     return utils.root_has_file({ '.eslintrc.js', '.eslintrc.json' })
+        --   end,
+        -- }),
         null_ls.builtins.formatting.pint.with({
           condition = function(utils)
             return utils.root_has_file({ 'vendor/bin/pint' })
@@ -118,7 +118,7 @@ return {
         }),
       },
       on_attach = function(client, bufnr)
-        if client.supports_method("textDocument/formatting") then
+        if client:supports_method("textDocument/formatting") then
           vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
           vim.api.nvim_create_autocmd("BufWritePre", {
             group = augroup,
