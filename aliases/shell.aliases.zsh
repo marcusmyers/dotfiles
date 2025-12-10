@@ -2,11 +2,11 @@
 alias c='clear'
 alias e='exit'
 alias tf='tail -f'
-if [[ `uname` == 'Darwin' ]]; then
+# if [[ `uname` == 'Darwin' ]]; then
 alias cat='bat'
-else
-alias cat='batcat'
-fi
+# else
+# alias cat='batcat'
+# fi
 
 # Environment Reloading
 reload_shell() {

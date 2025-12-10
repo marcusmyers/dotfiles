@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/zsh
 
 #os=`cat /etc/lsb-release | grep VERSION | awk '{printf "%s %s", $1, $3}'`
 os=`cat /etc/os-release | grep PRETTY_NAME | awk '{gsub(/"/, "", $0);split($0,a,"="); print a[2]}'`
