@@ -15,6 +15,9 @@
 ^/vim$
 ^/vimrc$
 ^/zsh$
+^/install$
+^/install.conf.yaml$
+^/pk10.zsh$
 
 # Standard ignores
 \.git
