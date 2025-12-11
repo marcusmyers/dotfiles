@@ -1,0 +1,23 @@
+# Ignore specific directories only
+^/aliases$
+^/conf$
+^/docs$
+^/fonts$
+^/functions$
+^/git$
+^/homebrew$
+^/osx$
+^/pacman$
+^/paths$
+^/scripts$
+^/sketchybar$
+^/skhd$
+^/vim$
+^/vimrc
+
+# Standard ignores
+\.git
+\.gitignore
+^/README.*
+^/LICENSE.*
+\.DS_Store
