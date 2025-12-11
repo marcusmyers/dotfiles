@@ -29,7 +29,7 @@
 	interactive = auto
 [core]
 	excludesfile = /home/mark/.gitignore
-        editor = vim
+        editor = nvim
 [apply]
         whitespace = nowarn
 [mergetool]
