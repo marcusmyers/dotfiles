@@ -13,7 +13,8 @@
 ^/sketchybar$
 ^/skhd$
 ^/vim$
-^/vimrc
+^/vimrc$
+^/zsh$
 
 # Standard ignores
 \.git
