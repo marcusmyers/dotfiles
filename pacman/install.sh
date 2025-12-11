@@ -1,6 +1,7 @@
 #!/bin/bash
 
 sudo pacman -S --noconfirm --needed \
+    curl \
     bat \
     kitty \
     lolcat \
@@ -12,3 +13,5 @@ sudo pacman -S --noconfirm --needed \
     stow \
     tmux \
     zsh
+
+exit 0

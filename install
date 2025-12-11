@@ -3,3 +3,25 @@
 set -e
 
 stow -t $HOME --verbose=2 --adopt .
+
+if [ `uname` == 'Darwin' ]; then
+    echo "MacOS"
+    ./osx/set-defaults.sh
+    ./homebrew/install.sh
+else
+    `hostnamectl | grep Arch &>/dev/null`
+    LAST=$?
+    if [ $LAST == 0 ]; then
+        echo "Omarchy"
+        ./pacman/install.sh || true
+    else
+        echo "Ubuntu"
+    fi
+fi
+
+./git/setup_defaults
+./zsh/install.sh
+./fonts/install.sh
+./dot-composer/install.sh
+composer global install
+

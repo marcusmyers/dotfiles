@@ -10,7 +10,7 @@ if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
   KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
+if [ `uname` = "Darwin" ]; then
 # Install oh-my-posh
 brew install jandedobbeleer/oh-my-posh/oh-my-posh
-
-exit 0
+fi

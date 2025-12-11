@@ -1,0 +1,16 @@
+{
+    "require": {
+        "laravel/envoy": "^2.6",
+        "laravel/installer": "^5.0",
+        "tightenco/takeout": "^3.0",
+        "cpx/cpx": "^1.0",
+        "nunomaduro/patrol": "^1.0",
+        "ergebnis/composer-normalize": "^2.15",
+        "beyondcode/expose": "^2.6"
+    },
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true
+        }
+    }
+}
