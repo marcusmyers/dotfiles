@@ -27,37 +27,37 @@
       "alignment": "left",
       "segments": [
         {
-          "style": "diamond",
           "leading_diamond": "\ue0b6",
           "trailing_diamond": "\ue0b0",
           "template": " {{ if .WSL }}WSL at {{ end }}{{.Icon}} ",
           "foreground": "#26C6DA",
           "background": "#546E7A",
-          "type": "os"
+          "type": "os",
+          "style": "diamond"
         },
         {
-          "properties": {
+          "options": {
             "max_depth": 3,
             "style": "agnoster_short"
           },
-          "style": "powerline",
           "template": " \uea83 {{ path .Path .Location }} ",
           "foreground": "p:white",
           "powerline_symbol": "\ue0b0",
           "background": "p:blue",
-          "type": "path"
+          "type": "path",
+          "style": "powerline"
         },
         {
-          "properties": {
+          "options": {
             "fetch_status": true,
             "fetch_upstream_icon": true
           },
-          "style": "powerline",
           "template": " {{ if .UpstreamURL }}{{ url .UpstreamIcon .UpstreamURL }} {{ end }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }} ",
           "foreground": "p:black",
           "powerline_symbol": "\ue0b0",
           "background": "p:green",
           "type": "git",
+          "style": "powerline",
           "foreground_templates": [
             "{{ if or (.Working.Changed) (.Staging.Changed) }}p:black{{ end }}",
             "{{ if and (gt .Ahead 0) (gt .Behind 0) }}p:white{{ end }}",
@@ -77,59 +77,59 @@
       "alignment": "right",
       "segments": [
         {
-          "properties": {
+          "options": {
             "always_enabled": true
           },
-          "style": "diamond",
           "leading_diamond": "\ue0b6",
           "trailing_diamond": "\ue0b0",
           "template": " {{ if gt .Code 0 }}\uf00d{{ else }}\uf00c{{ end }} ",
           "foreground": "p:white",
           "background": "p:blue",
           "type": "status",
+          "style": "diamond",
           "background_templates": [
             "{{ if gt .Code 0 }}p:red{{ end }}"
           ]
         },
         {
-          "style": "powerline",
           "template": " \ue791 {{ .Full }}",
           "foreground": "#ffffff",
           "powerline_symbol": "\ue0b0",
           "background": "#4063D8",
-          "type": "ruby"
+          "type": "ruby",
+          "style": "powerline"
         },
         {
-          "style": "powerline",
           "template": " \ue73d {{ .Full }} ",
           "foreground": "#ffffff",
           "powerline_symbol": "\ue0b0",
           "background": "#4063D8",
-          "type": "php"
+          "type": "php",
+          "style": "powerline"
         },
         {
-          "properties": {
+          "options": {
             "always_enabled": true,
             "style": "austin",
             "threshold": 500
           },
-          "style": "powerline",
           "template": " <#fefefe>\ueba2</> {{ .FormattedMs }} ",
           "foreground": "#ffffff",
           "powerline_symbol": "\ue0b0",
           "background": "#8800dd",
-          "type": "executiontime"
+          "type": "executiontime",
+          "style": "powerline"
         },
         {
-          "properties": {
+          "options": {
             "time_format": " 15:04:05"
           },
-          "style": "powerline",
           "template": " {{ .CurrentDate | date .Format }} ",
           "foreground": "#007ACC",
           "powerline_symbol": "\ue0b0",
           "background": "p:white",
-          "type": "time"
+          "type": "time",
+          "style": "powerline"
         }
       ]
     },
@@ -138,26 +138,24 @@
       "alignment": "left",
       "segments": [
         {
-          "style": "plain",
           "template": "\u2570\u2500",
           "foreground": "#21c7c7",
-          "background": "",
-          "type": "text"
+          "type": "text",
+          "style": "plain"
         },
         {
-          "properties": {
+          "options": {
             "always_enabled": true
           },
-          "style": "plain",
           "template": "❯  ",
           "foreground": "#e0f8ff",
-          "background": "",
-          "type": "status"
+          "type": "status",
+          "style": "plain"
         }
       ],
       "newline": true
     }
   ],
-  "version": 3,
+  "version": 4,
   "final_space": true
 }

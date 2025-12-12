@@ -1,4 +1,5 @@
 # Ignore specific directories only
+^/ai$
 ^/aliases$
 ^/conf$
 ^/docs$
