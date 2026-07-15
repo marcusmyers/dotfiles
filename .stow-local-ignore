@@ -1,6 +1,7 @@
 # Ignore specific directories only
 ^/ai$
 ^/aliases$
+^/apt$
 ^/conf$
 ^/docs$
 ^/fonts$
@@ -16,9 +17,11 @@
 ^/vim$
 ^/vimrc$
 ^/zsh$
+^/dot-zshrc$
+^/dot-tmux.conf$
 ^/install$
 ^/install.conf.yaml$
-^/pk10.zsh$
+^/p10k.zsh$
 
 # Standard ignores
 \.git

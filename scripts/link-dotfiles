@@ -1,0 +1,112 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+DOTFILES_DIR="${1:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
+BACKUP_ROOT="$HOME/.dotfiles-backup/$(date +%Y%m%d-%H%M%S)"
+
+backup_target() {
+    local target="$1"
+    local relative="${target#"$HOME"/}"
+    local backup="$BACKUP_ROOT/$relative"
+
+    mkdir -p "$(dirname "$backup")"
+    mv "$target" "$backup"
+    echo "Backed up $target to $backup"
+}
+
+remove_retired_link() {
+    local target="$1"
+
+    if [ -L "$target" ]; then
+        local link
+        link="$(readlink "$target")"
+        case "$link" in
+            "$DOTFILES_DIR"/*|*dot-zshrc|*dot-tmux.conf|*p10k.zsh)
+                rm "$target"
+                ;;
+        esac
+    fi
+}
+
+prepare_managed_tree() {
+    local source_root="$1"
+    local target_root="$2"
+    local source target relative
+
+    # First make every destination directory real. This safely unfolds old
+    # Stow directory links and backs up links owned by another configuration.
+    while IFS= read -r -d '' source; do
+        relative="${source#"$source_root"}"
+        target="$target_root$relative"
+
+        if [ -L "$target" ]; then
+            if [ "$target" -ef "$source" ]; then
+                rm "$target"
+            else
+                backup_target "$target"
+            fi
+        elif [ -e "$target" ] && [ ! -d "$target" ]; then
+            backup_target "$target"
+        fi
+
+        mkdir -p "$target"
+    done < <(find "$source_root" -type d -print0)
+
+    # Then preserve any unmanaged file that would conflict with a tracked one.
+    while IFS= read -r -d '' source; do
+        relative="${source#"$source_root"}"
+        target="$target_root$relative"
+
+        if { [ -e "$target" ] || [ -L "$target" ]; } && [ ! "$target" -ef "$source" ]; then
+            backup_target "$target"
+        fi
+    done < <(find "$source_root" \( -type f -o -type l \) -print0)
+}
+
+prepare_managed_file() {
+    local source="$1"
+    local target="$2"
+
+    if { [ -e "$target" ] || [ -L "$target" ]; } && [ ! "$target" -ef "$source" ]; then
+        backup_target "$target"
+    fi
+}
+
+link_macos_nushell_config() {
+    [ "$(uname -s)" = "Darwin" ] || return 0
+
+    local destination="$HOME/Library/Application Support/nushell"
+    mkdir -p "$destination"
+
+    local filename source target
+    for filename in config.nu login.nu; do
+        source="$DOTFILES_DIR/dot-config/nushell/$filename"
+        target="$destination/$filename"
+
+        if [ -L "$target" ] && [ "$(readlink "$target")" = "$source" ]; then
+            continue
+        fi
+
+        if [ -e "$target" ] || [ -L "$target" ]; then
+            backup_target "$target"
+        fi
+
+        ln -s "$source" "$target"
+    done
+}
+
+remove_retired_link "$HOME/.zshrc"
+remove_retired_link "$HOME/.tmux.conf"
+remove_retired_link "$HOME/.p10k.zsh"
+remove_retired_link "$HOME/p10k.zsh"
+
+# Prepare only the paths represented by this package. Unmanaged conflicts are
+# preserved outside the repository rather than adopted into it.
+prepare_managed_tree "$DOTFILES_DIR/dot-config" "$HOME/.config"
+prepare_managed_tree "$DOTFILES_DIR/dot-composer" "$HOME/.composer"
+prepare_managed_file "$DOTFILES_DIR/dot-gitconfig" "$HOME/.gitconfig"
+prepare_managed_file "$DOTFILES_DIR/dot-gitignore" "$HOME/.gitignore"
+
+stow --dir "$DOTFILES_DIR" --target "$HOME" --restow --no-folding .
+link_macos_nushell_config

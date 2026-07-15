@@ -1,10 +1,109 @@
-# dotfiles
+# Mark's dotfiles
 
-Your dotfiles are how you personalize your system. These are mine.
+One configuration for macOS, Omarchy/Arch workstations, and Ubuntu/Debian
+servers. Nushell is the interactive shell and Herdr is the persistent terminal
+workspace manager.
 
-I was a little tired of having long alias files and everything strewn about
-(which is extremely common on other dotfiles projects, too). That led to this
-project being much more topic-centric. I realized I could split a lot of things
-up into the main areas I used (Ruby, git, system libraries, and so on), so I
-structured the project accordingly.
+## Install
 
+Clone the repository anywhere, then run:
+
+```sh
+./install
+```
+
+This installs the platform packages, links the tracked dotfiles into `$HOME`,
+and configures Herdr to open Nushell in every new pane. It does **not** change
+the account's login shell, so POSIX-dependent system tools continue to work.
+Start either tool directly:
+
+```sh
+nu
+herdr
+```
+
+To make Nu the account login shell too:
+
+```sh
+./install --set-shell
+```
+
+That opt-in adds the resolved `nu` binary to `/etc/shells` and runs `chsh`.
+Nushell is not POSIX-compatible, so leaving the login shell unchanged is often
+the better choice on servers even though Herdr itself uses Nu.
+
+## Supported systems
+
+| System | Package path | Notes |
+| --- | --- | --- |
+| macOS (Intel/Apple silicon) | Homebrew | Installs `nushell`, `herdr`, `stow`, and the existing Brewfile tools. |
+| Omarchy | `omarchy pkg add` | Uses Omarchy's package workflow when available, preserving its package/config migration behavior. |
+| Arch Linux | `pacman` | Uses the same package list as Omarchy. |
+| Ubuntu/Debian | `apt` | Adds Nushell's official Gemfury APT repository; Herdr uses its official architecture-aware installer. |
+
+Ubuntu's path intentionally installs CLI tools only, which keeps it suitable
+for headless servers. Herdr can be launched locally over SSH, or attached from
+another device with `herdr --remote <ssh-host>`.
+
+## How linking works
+
+GNU Stow is the only linker. The repository is treated as one package and
+`--dotfiles` converts names such as `dot-config` and `dot-gitconfig` into
+`.config` and `.gitconfig` under `$HOME`.
+
+The installer uses `--restow --no-folding`:
+
+- `--restow` makes rerunning the installer idempotent.
+- `--no-folding` links individual files instead of whole directories, so
+  runtime files such as Herdr logs and Nushell-generated autoload files are not
+  written into this Git repository.
+- `--adopt` is deliberately not used. Unmanaged conflicts are moved to
+  `~/.dotfiles-backup/<timestamp>` before linking instead of being copied into
+  the repository.
+
+Nushell follows the XDG path on Linux (`~/.config/nushell`) but defaults to
+`~/Library/Application Support/nushell` on macOS. Stow creates the XDG links;
+the installer adds the two macOS links explicitly and backs up conflicting
+macOS files under `~/.dotfiles-backup/<timestamp>/nushell`.
+
+The retired zsh, Powerlevel10k, and tmux files remain in the repository as
+migration references but are ignored by Stow. Their existing managed symlinks
+are removed when the installer runs; unrelated user-owned files are left alone.
+The installer also unfolds directory links created by older versions of this
+repository. Links owned by another configuration (including an Omarchy
+default) are backed up before the tracked file-level links are created.
+
+## Nushell configuration
+
+The shared config lives in `dot-config/nushell/config.nu`. It includes the old
+Git, Docker, PHP, project-navigation, and Composer/Satis shortcuts translated
+to native Nu commands. `PROJECTS` defaults to `~/Documents/Code` on macOS and
+`~/Code` on Linux, but an inherited value wins.
+
+Put private or machine-only Nu settings in the platform's Nushell config
+directory as `local.nu`:
+
+```nu
+$env.MY_SECRET = "..."
+$env.PROJECTS = ($env.HOME | path join "src")
+```
+
+`local.nu` is optional and is never linked or committed.
+
+## Herdr configuration
+
+Herdr reads `~/.config/herdr/config.toml` on both Linux and macOS. The tracked
+configuration selects Nu, keeps the old `Ctrl+A` prefix, and carries over the
+familiar pane controls. Ghostty's former `Ctrl+A` split bindings are removed so
+those keystrokes reach Herdr:
+
+| Keys | Action |
+| --- | --- |
+| `Ctrl+A`, then `h/j/k/l` | Move between panes |
+| `Ctrl+A`, then `v` | Split vertically |
+| `Ctrl+A`, then `-` | Split horizontally |
+| `Ctrl+A`, then `+` | Zoom/unzoom a pane |
+| `Ctrl+A`, then `1`…`9` | Select a tab |
+
+Run `herdr server reload-config` after editing the Herdr config. Run `config nu`
+inside Nu to edit the active Nushell configuration.

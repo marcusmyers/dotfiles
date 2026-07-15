@@ -2,6 +2,9 @@
 --ignore='\.stowrc'
 --ignore='\.DS_STORE'
 --ignore='install*'
+--ignore='dot-zshrc'
+--ignore='dot-tmux.conf'
+--ignore='p10k.zsh'
 --ignore='vimrc'
 --ignore='vim/'
 --ignore=skhd
@@ -18,3 +21,4 @@
 --ignore="docs/"
 --ignore="conf/"
 --ignore="aliases/"
+--ignore=apt

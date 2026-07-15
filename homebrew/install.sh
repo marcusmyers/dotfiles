@@ -1,27 +1,16 @@
-#!/bin/sh
-#
-# Homebrew
-#
-# This installs some of the common dependencies needed (or at least desired)
-# using Homebrew.
+#!/usr/bin/env bash
 
-# Check for Homebrew
+set -euo pipefail
 
-if test "$(uname)" = "Darwin"
-then
-  if test ! $(which brew)
-  then
-    echo "  Installing Homebrew for you."
+if ! command -v brew >/dev/null 2>&1; then
+    echo "Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-    # Install the correct homebrew for each OS type
-    if test "$(uname)" = "Darwin"
-    then
-      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    if [ -x /opt/homebrew/bin/brew ]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    elif [ -x /usr/local/bin/brew ]; then
+        eval "$(/usr/local/bin/brew shellenv)"
     fi
-  fi
-  # Install homebrew packages
-  brew install grc coreutils spark
-  brew bundle --file=homebrew/Brewfile
 fi
 
-exit 0
+brew bundle --file="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/Brewfile"

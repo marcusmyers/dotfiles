@@ -10,14 +10,11 @@
         helper = cache
 [alias]
 	co = checkout
-        promote = !$ZSH/bin/git-promote
-        wtf     = !$ZSH/bin/git-wtf
-        rank-contributors = !$ZSH/bin/git-rank-contributors
         count   = !git shortlog -sn
 	st = status
 	ci = commit
 	br = branch
-	cleanlocal = "!zsh -c 'BRANCH=`git current`; if [[ ! $BRANCH =~  ^master$ ]];then read \"?Are you sure you want to run while not in master (you run the risk of deleting master)? (y/n) \" choice; if [[ ! $choice =~ ^[Yy]$ ]]; then echo Nothing done; exit 0; fi ; fi; for stale_branch (`git branch --merged $BRANCH | grep -v $BRANCH`) git branch -d $stale_branch'"
+	cleanlocal = "!f() { branch=$(git current) || exit 1; case $branch in main|master) ;; *) printf 'Delete branches merged into %s? (y/n) ' \"$branch\"; read answer; case $answer in y|Y) ;; *) echo 'Nothing done'; exit 0 ;; esac ;; esac; git for-each-ref --format='%(refname:short)' --merged \"$branch\" refs/heads | while IFS= read -r stale; do test \"$stale\" = \"$branch\" || git branch -d \"$stale\"; done; }; f"
 	current = !git rev-parse --abbrev-ref HEAD
 	some = !git checkout master && git pull --rebase && git remote prune origin && git cleanlocal
 	msome = !git checkout main && git pull --rebase && git remote prune origin && git cleanlocal
@@ -28,7 +25,7 @@
         ui = true
 	interactive = auto
 [core]
-	excludesfile = /home/mark/.gitignore
+	excludesfile = ~/.gitignore
         editor = nvim
 [apply]
         whitespace = nowarn
@@ -47,9 +44,10 @@
 [merge]
 	summary = true
 [init]
-	templatedir = /home/mark/.dotfiles/git/templates
 	defaultBranch = main
 [branch]
 	autosetupmerge = true
 [web]
 	browser = chromium
+[include]
+	path = ~/.gitconfig.local

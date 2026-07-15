@@ -1,27 +1,134 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
 
-stow -t $HOME --verbose=2 --adopt .
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SET_SHELL=false
+export PATH="$HOME/.local/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:$PATH"
 
-if [ `uname` == 'Darwin' ]; then
-    echo "MacOS"
-    ./osx/set-defaults.sh
-    ./homebrew/install.sh
-else
-    `hostnamectl | grep Arch &>/dev/null`
-    LAST=$?
-    if [ $LAST == 0 ]; then
-        echo "Omarchy"
-        ./pacman/install.sh || true
-    else
-        echo "Ubuntu"
+usage() {
+    cat <<'EOF'
+Usage: ./install [--set-shell]
+
+Install packages, safely link this repository into $HOME, and configure Nu and
+Herdr. Pass --set-shell to add Nu to /etc/shells and make it the login shell.
+Without that flag, run `nu` or `herdr` directly; Herdr still opens Nu panes.
+EOF
+}
+
+for argument in "$@"; do
+    case "$argument" in
+        --set-shell)
+            SET_SHELL=true
+            ;;
+        --help|-h)
+            usage
+            exit 0
+            ;;
+        *)
+            echo "Unknown option: $argument" >&2
+            usage >&2
+            exit 2
+            ;;
+    esac
+done
+
+cd "$DOTFILES_DIR"
+
+install_platform_packages() {
+    case "$(uname -s)" in
+        Darwin)
+            "$DOTFILES_DIR/homebrew/install.sh"
+            ;;
+        Linux)
+            if [ ! -r /etc/os-release ]; then
+                echo "Cannot determine this Linux distribution (/etc/os-release is missing)." >&2
+                exit 1
+            fi
+
+            # shellcheck disable=SC1091
+            . /etc/os-release
+            case "${ID:-}:${ID_LIKE:-}" in
+                arch:*|omarchy:*|*:*arch*)
+                    "$DOTFILES_DIR/pacman/install.sh"
+                    ;;
+                ubuntu:*|debian:*|pop:*|linuxmint:*|*:debian*|*:ubuntu*)
+                    "$DOTFILES_DIR/apt/install.sh"
+                    ;;
+                *)
+                    echo "Unsupported Linux distribution: ${PRETTY_NAME:-${ID:-unknown}}" >&2
+                    echo "Install git, curl, stow, nushell, and bat, then rerun this installer." >&2
+                    exit 1
+                    ;;
+            esac
+            ;;
+        *)
+            echo "Only macOS and Linux are supported by this dotfiles bootstrap." >&2
+            exit 1
+            ;;
+    esac
+}
+
+install_herdr() {
+    command -v herdr >/dev/null 2>&1 && return 0
+    echo "Installing Herdr..."
+    curl -fsSL https://herdr.dev/install.sh | sh
+}
+
+initialize_prompt() {
+    command -v oh-my-posh >/dev/null 2>&1 || return 0
+    command -v nu >/dev/null 2>&1 || return 0
+    oh-my-posh init nu --config "$HOME/.config/oh-my-posh/mark.json" >/dev/null
+}
+
+set_login_shell() {
+    "$SET_SHELL" || return 0
+
+    local nu_path
+    nu_path="$(command -v nu)"
+    if ! grep -Fxq "$nu_path" /etc/shells; then
+        echo "$nu_path" | sudo tee -a /etc/shells >/dev/null
     fi
+
+    if [ "${SHELL:-}" != "$nu_path" ]; then
+        chsh -s "$nu_path"
+        echo "Nu will be your login shell after you sign out and back in."
+    fi
+}
+
+install_platform_packages
+install_herdr
+
+if [ "$(uname -s)" = "Darwin" ]; then
+    "$DOTFILES_DIR/osx/set-defaults.sh"
 fi
 
-./git/setup_defaults
-./zsh/install.sh
-./fonts/install.sh
-./dot-composer/install.sh
-composer global install
+if ! command -v stow >/dev/null 2>&1; then
+    echo "GNU Stow was not installed successfully." >&2
+    exit 1
+fi
+if ! command -v nu >/dev/null 2>&1; then
+    echo "Nushell was not installed successfully." >&2
+    exit 1
+fi
 
+# --no-folding keeps runtime files (Herdr logs, Nushell autoload files, etc.)
+# out of this repository by linking individual files instead of whole folders.
+"$DOTFILES_DIR/scripts/link-dotfiles" "$DOTFILES_DIR"
+
+"$DOTFILES_DIR/git/setup_defaults" "$DOTFILES_DIR"
+"$DOTFILES_DIR/fonts/install.sh"
+
+if command -v composer >/dev/null 2>&1; then
+    composer global install --no-interaction
+else
+    echo "Composer is unavailable; skipping global Composer packages."
+fi
+
+initialize_prompt
+set_login_shell
+
+echo
+echo "Dotfiles are installed. Start with:"
+echo "  nu       # Nushell"
+echo "  herdr    # persistent Herdr workspace with Nu panes"
