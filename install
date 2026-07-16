@@ -79,7 +79,8 @@ install_prompt() {
     command -v oh-my-posh >/dev/null 2>&1 && return 0
 
     echo "Installing Oh My Posh..."
-    curl -s https://ohmyposh.dev/install.sh | bash -s
+    mkdir -p "$HOME/.local/bin"
+    curl -s https://ohmyposh.dev/install.sh | bash -s -- -d "$HOME/.local/bin"
 }
 
 set_login_shell() {

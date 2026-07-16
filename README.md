@@ -85,6 +85,9 @@ Oh My Posh theme is its cross-shell replacement: when `oh-my-posh` is
 available, Nu loads `dot-config/oh-my-posh/mark.json` automatically. It retains
 the path, Git state, language versions, exit status, execution time, clock,
 secondary prompt, and transient prompt while using the same Nerd Font glyphs.
+After installation, start a new `nu` session (or run `exec nu`) to activate the
+prompt. The bootstrap installs Oh My Posh into `~/.local/bin`, which is included
+in the tracked Nushell `PATH`.
 
 Put private or machine-only Nu settings in the platform's Nushell config
 directory as `local.nu`:
