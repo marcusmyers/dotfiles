@@ -133,6 +133,7 @@ def --env reload-shell [] {
 
 alias r = reload-shell
 alias h = ^herdr
+alias attack = ^siege -t20s -b -c1
 
 # Nushell's `open` is useful for data. Use this for the platform GUI opener.
 def sys-open [target: path] {
@@ -155,3 +156,9 @@ source $local_config
 # A local PROJECTS override should also update its derived Go locations.
 $env.GOPATH = ($env.PROJECTS | path join "go")
 $env.PATH = ([($env.GOPATH | path join "bin")] | append $env.PATH | flatten | uniq)
+
+# Powerlevel10k only runs in zsh. Oh My Posh uses the tracked p10k-style theme
+# to provide the same path, Git, language, status, timing, and clock segments.
+if (which oh-my-posh | is-not-empty) {
+    oh-my-posh init nu --config ($env.HOME | path join ".config" "oh-my-posh" "mark.json")
+}

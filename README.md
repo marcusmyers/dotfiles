@@ -80,6 +80,12 @@ Git, Docker, PHP, project-navigation, and Composer/Satis shortcuts translated
 to native Nu commands. `PROJECTS` defaults to `~/Documents/Code` on macOS and
 `~/Code` on Linux, but an inherited value wins.
 
+Powerlevel10k itself is a zsh plugin and cannot run in Nushell. The existing
+Oh My Posh theme is its cross-shell replacement: when `oh-my-posh` is
+available, Nu loads `dot-config/oh-my-posh/mark.json` automatically. It retains
+the path, Git state, language versions, exit status, execution time, clock,
+secondary prompt, and transient prompt while using the same Nerd Font glyphs.
+
 Put private or machine-only Nu settings in the platform's Nushell config
 directory as `local.nu`:
 

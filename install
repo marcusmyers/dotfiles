@@ -75,10 +75,11 @@ install_herdr() {
     curl -fsSL https://herdr.dev/install.sh | sh
 }
 
-initialize_prompt() {
-    command -v oh-my-posh >/dev/null 2>&1 || return 0
-    command -v nu >/dev/null 2>&1 || return 0
-    oh-my-posh init nu --config "$HOME/.config/oh-my-posh/mark.json" >/dev/null
+install_prompt() {
+    command -v oh-my-posh >/dev/null 2>&1 && return 0
+
+    echo "Installing Oh My Posh..."
+    curl -s https://ohmyposh.dev/install.sh | bash -s
 }
 
 set_login_shell() {
@@ -125,7 +126,7 @@ else
     echo "Composer is unavailable; skipping global Composer packages."
 fi
 
-initialize_prompt
+install_prompt
 set_login_shell
 
 echo
