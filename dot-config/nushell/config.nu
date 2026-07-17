@@ -172,6 +172,9 @@ if (($env.TMUX? | is-not-empty) and (which tmux | is-not-empty)) {
 
 # Powerlevel10k only runs in zsh. Oh My Posh uses the tracked p10k-style theme
 # to provide the same path, Git, language, status, timing, and clock segments.
+# For Nu, this command writes the generated integration to the vendor autoload
+# directory. Nushell loads that file on the next startup; --print is the mode
+# that emits the generated script to stdout.
 if (which oh-my-posh | is-not-empty) {
     oh-my-posh init nu --config ($env.HOME | path join ".config" "oh-my-posh" "mark.json")
 }

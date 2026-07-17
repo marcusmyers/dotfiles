@@ -80,7 +80,7 @@ install_prompt() {
 
     echo "Installing Oh My Posh..."
     mkdir -p "$HOME/.local/bin"
-    curl -s https://ohmyposh.dev/install.sh | bash -s -- -d "$HOME/.local/bin"
+    curl -fsSL https://ohmyposh.dev/install.sh | bash -s -- -d "$HOME/.local/bin"
 }
 
 set_login_shell() {
