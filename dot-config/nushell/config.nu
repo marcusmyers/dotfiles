@@ -4,6 +4,7 @@ $env.EDITOR = "nvim"
 $env.VISUAL = "nvim"
 $env.COMPOSER_HOME = ($env.HOME | path join ".composer")
 $env.DOTFILES = ($nu.config-path | path expand | path dirname | path dirname | path dirname)
+$env.DEFAULT_USER = ($env.USER? | default ($env.USERNAME? | default ""))
 
 if ($env.PROJECTS? | is-empty) {
     $env.PROJECTS = if $nu.os-info.name == "macos" {
@@ -133,6 +134,7 @@ def --env reload-shell [] {
 
 alias r = reload-shell
 alias h = ^herdr
+alias attack = ^siege -t20s -b -c1
 
 # Nushell's `open` is useful for data. Use this for the platform GUI opener.
 def sys-open [target: path] {
@@ -155,3 +157,24 @@ source $local_config
 # A local PROJECTS override should also update its derived Go locations.
 $env.GOPATH = ($env.PROJECTS | path join "go")
 $env.PATH = ([($env.GOPATH | path join "bin")] | append $env.PATH | flatten | uniq)
+
+# Preserve the tmux status formatting that used to run from .zshrc.
+if (($env.TMUX? | is-not-empty) and (which tmux | is-not-empty)) {
+    for setting in [
+        ["window-status-format" "#I:#{b:pane_current_path}"]
+        ["window-status-current-format" "#I@#{b:pane_current_path}"]
+        ["status-left" " "]
+        ["status-right" " %Y-%m-%d %H:%M:%S "]
+    ] {
+        do { ^tmux set -g $setting.0 $setting.1 } | complete | ignore
+    }
+}
+
+# Powerlevel10k only runs in zsh. Oh My Posh uses the tracked p10k-style theme
+# to provide the same path, Git, language, status, timing, and clock segments.
+# For Nu, this command writes the generated integration to the vendor autoload
+# directory. Nushell loads that file on the next startup; --print is the mode
+# that emits the generated script to stdout.
+if (which oh-my-posh | is-not-empty) {
+    oh-my-posh init nu --config ($env.HOME | path join ".config" "oh-my-posh" "mark.json")
+}

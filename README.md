@@ -66,9 +66,9 @@ Nushell follows the XDG path on Linux (`~/.config/nushell`) but defaults to
 the installer adds the two macOS links explicitly and backs up conflicting
 macOS files under `~/.dotfiles-backup/<timestamp>/nushell`.
 
-The retired zsh, Powerlevel10k, and tmux files remain in the repository as
-migration references but are ignored by Stow. Their existing managed symlinks
-are removed when the installer runs; unrelated user-owned files are left alone.
+The retired tmux file remains in the repository as a migration reference and
+is ignored by Stow. Existing managed zsh, Powerlevel10k, and tmux symlinks are
+removed when the installer runs; unrelated user-owned files are left alone.
 The installer also unfolds directory links created by older versions of this
 repository. Links owned by another configuration (including an Omarchy
 default) are backed up before the tracked file-level links are created.
@@ -80,6 +80,15 @@ Git, Docker, PHP, project-navigation, and Composer/Satis shortcuts translated
 to native Nu commands. `PROJECTS` defaults to `~/Documents/Code` on macOS and
 `~/Code` on Linux, but an inherited value wins.
 
+Powerlevel10k itself is a zsh plugin and cannot run in Nushell. The existing
+Oh My Posh theme is its cross-shell replacement: when `oh-my-posh` is
+available, Nu loads `dot-config/oh-my-posh/mark.json` automatically. It retains
+the path, Git state, language versions, exit status, execution time, clock,
+secondary prompt, and transient prompt while using the same Nerd Font glyphs.
+After installation, start a new `nu` session (or run `exec nu`) to activate the
+prompt. The bootstrap installs Oh My Posh into `~/.local/bin`, which is included
+in the tracked Nushell `PATH`.
+
 Put private or machine-only Nu settings in the platform's Nushell config
 directory as `local.nu`:
 
@@ -89,6 +98,15 @@ $env.PROJECTS = ($env.HOME | path join "src")
 ```
 
 `local.nu` is optional and is never linked or committed.
+
+`local.nu` replaces the former `~/.secrets` hook and must contain Nushell
+syntax. SSH-agent startup is deliberately not performed per shell; Nu inherits
+`SSH_AUTH_SOCK` from a desktop session, login manager, or SSH connection when
+an agent is in use.
+
+The login banner is defined in `dot-config/nushell/login.nu` and appears for Nu
+login shells. When running inside tmux, `config.nu` applies the former status
+path and clock formatting.
 
 ## Herdr configuration
 

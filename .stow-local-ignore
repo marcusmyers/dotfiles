@@ -1,27 +1,21 @@
 # Ignore specific directories only
 ^/ai$
-^/aliases$
 ^/apt$
 ^/conf$
 ^/docs$
 ^/fonts$
-^/functions$
 ^/git$
 ^/homebrew$
 ^/osx$
 ^/pacman$
-^/paths$
 ^/scripts$
 ^/sketchybar$
 ^/skhd$
 ^/vim$
 ^/vimrc$
-^/zsh$
-^/dot-zshrc$
 ^/dot-tmux.conf$
 ^/install$
 ^/install.conf.yaml$
-^/p10k.zsh$
 
 # Standard ignores
 \.git
