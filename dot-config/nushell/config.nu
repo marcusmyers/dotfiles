@@ -44,7 +44,7 @@ $env.config.completions.algorithm = "fuzzy"
 const omarchy_config = if ($nu.os-info.name == "linux" and (($nu.default-config-dir | path join "omarchy.nu") | path exists)) {
     $nu.default-config-dir | path join "omarchy.nu"
 } else {
-    null
+    "/dev/null"
 }
 source $omarchy_config
 
