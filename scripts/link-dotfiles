@@ -110,3 +110,7 @@ prepare_managed_file "$DOTFILES_DIR/dot-gitignore" "$HOME/.gitignore"
 
 stow --dir "$DOTFILES_DIR" --target "$HOME" --restow --no-folding .
 link_macos_nushell_config
+
+if [ "$(uname -s)" = "Linux" ] && [ -x "$HOME/.config/nushell/sync-omarchy-nushell" ]; then
+    "$HOME/.config/nushell/sync-omarchy-nushell"
+fi

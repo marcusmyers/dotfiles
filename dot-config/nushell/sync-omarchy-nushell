@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+autoload_dir="$HOME/.local/share/nushell/vendor/autoload"
+state_dir="$HOME/.local/state/nushell"
+state_file="$state_dir/omarchy-defaults.sha256"
+mkdir -p "$autoload_dir" "$state_dir"
+
+current_hash() {
+    find /usr/share/omarchy/default/bash -type f -print0 2>/dev/null \
+        | sort -z \
+        | xargs -0 sha256sum \
+        | sha256sum \
+        | cut -d ' ' -f 1
+}
+
+installed_hash="$(current_hash)"
+previous_hash="$(cat "$state_file" 2>/dev/null || true)"
+
+if [ "${1:-}" = "--check" ]; then
+    if [ "$installed_hash" = "$previous_hash" ]; then
+        echo "Omarchy Nushell integration is current."
+        exit 0
+    fi
+    echo "Omarchy's Bash defaults changed; run sync-omarchy-nushell." >&2
+    exit 1
+fi
+
+if command -v mise >/dev/null 2>&1; then
+    mise activate nu >"$autoload_dir/mise.nu"
+fi
+
+if command -v zoxide >/dev/null 2>&1; then
+    zoxide init nushell >"$autoload_dir/zoxide.nu"
+fi
+
+# The tracked configuration uses Oh My Posh. Generate Omarchy's Starship
+# integration only on machines where that preferred prompt is unavailable.
+if ! command -v oh-my-posh >/dev/null 2>&1 && command -v starship >/dev/null 2>&1; then
+    starship init nu >"$autoload_dir/starship.nu"
+else
+    rm -f "$autoload_dir/starship.nu"
+fi
+
+printf '%s\n' "$installed_hash" >"$state_file"
+echo "Refreshed Nushell integrations for the installed Omarchy defaults."
+if [ -n "$previous_hash" ] && [ "$installed_hash" != "$previous_hash" ]; then
+    echo "Omarchy's Bash defaults changed. Native aliases may need review; Bash-backed helpers already use the new implementation."
+fi

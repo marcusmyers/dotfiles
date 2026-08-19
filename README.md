@@ -108,6 +108,24 @@ The login banner is defined in `dot-config/nushell/login.nu` and appears for Nu
 login shells. When running inside tmux, `config.nu` applies the former status
 path and clock formatting.
 
+On Omarchy, `dot-config/nushell/omarchy.nu` ports the interactive environment,
+aliases, navigation, dynamic `omarchy` completion, and worktree helpers. Larger
+upstream helpers (drive tools, SSH reconnects, rsync watchers, and tmux/Herdr
+layouts) run through a compatibility bridge that loads the currently installed
+Omarchy implementation, so Omarchy updates are picked up automatically.
+
+The installer refreshes generated Mise and Zoxide autoload files. Refresh them
+again after an update, or check whether Omarchy's source defaults changed:
+
+```nu
+sync-omarchy-nushell
+sync-omarchy-nushell --check
+```
+
+Oh My Posh remains the preferred prompt for this repository. The sync command
+only generates Omarchy's Starship integration when Oh My Posh is unavailable,
+preventing two prompt engines from competing.
+
 ## Herdr configuration
 
 Herdr reads `~/.config/herdr/config.toml` on both Linux and macOS. The tracked

@@ -40,8 +40,16 @@ $env.config.completions.quick = true
 $env.config.completions.partial = true
 $env.config.completions.algorithm = "fuzzy"
 
+# Omarchy environment, shortcuts, helpers, and dynamic command completion.
+const omarchy_config = if ($nu.os-info.name == "linux" and (($nu.default-config-dir | path join "omarchy.nu") | path exists)) {
+    $nu.default-config-dir | path join "omarchy.nu"
+} else {
+    null
+}
+source $omarchy_config
+
 # Shell shortcuts carried over from the former zsh setup.
-alias c = clear
+alias cls = clear
 alias e = exit
 alias tf = ^tail -f
 alias cat = ^bat
@@ -49,13 +57,14 @@ alias cat = ^bat
 alias gl = ^git pull --prune
 alias glog = ^git log --graph --pretty="format:%C(red)%h%Creset %an: %s - %C(yellow)%d%Creset %C(green)(%cr)%Creset" --abbrev-commit --date=relative
 alias gp = ^git push origin HEAD
-alias gd = ^git diff
+alias gdiff = ^git diff
 alias gc = ^git commit -v
 alias gca = ^git commit -a
 alias gco = ^git checkout
 alias gcb = ^git copy-branch-name
 alias gb = ^git branch
 alias gs = ^git status -sb
+alias gst = ^git status
 
 alias dm = ^docker-machine
 alias dma = ^docker-machine active
@@ -77,7 +86,7 @@ def --wrapped artisan [...args] {
     ^php artisan ...$args
 }
 
-alias a = artisan
+alias pa = artisan
 alias tinker = ^php artisan tinker
 alias serve = ^php artisan serve
 alias mfs = ^php artisan migrate:fresh --seed
@@ -132,7 +141,7 @@ def --env reload-shell [] {
     exec nu
 }
 
-alias r = reload-shell
+alias reload = reload-shell
 alias h = ^herdr
 alias attack = ^siege -t20s -b -c1
 
