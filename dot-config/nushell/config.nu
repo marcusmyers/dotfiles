@@ -94,7 +94,7 @@ alias mfs = ^php artisan migrate:fresh --seed
 def "nu-complete projects" [] {
     let projects = ($env.PROJECTS | path expand)
     if ($projects | path exists) {
-        glob ($projects | path join "**" ".git") --depth 3
+        glob ($projects | path join "**" ".git")
             | each { |git_dir| $git_dir | path dirname | path relative-to $projects }
             | sort
             | uniq
