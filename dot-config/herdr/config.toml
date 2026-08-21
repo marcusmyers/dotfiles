@@ -1,8 +1,10 @@
+onboarding = false
 # Keep the tmux muscle memory while using Herdr's workspace and agent model.
 
 [theme]
 name = "solarized"
 
+auto_switch = false
 [terminal]
 default_shell = "nu"
 shell_mode = "auto"
@@ -25,5 +27,12 @@ pane_borders = true
 pane_gaps = true
 confirm_close = true
 
+show_agent_labels_on_pane_borders = true
 [remote]
 manage_ssh_config = true
+
+[ui.toast]
+delivery = "system"
+
+[ui.sound]
+enabled = false

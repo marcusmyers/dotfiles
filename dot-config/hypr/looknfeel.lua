@@ -1,6 +1,6 @@
 hl.config({
   general = {
-    border_size = 6,
+    border_size = 10,
   },
 
   decoration = {

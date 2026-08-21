@@ -35,6 +35,10 @@
           "id": "omarchy.tray"
         },
         {
+          "id": "io.github.thisisgm.omapods",
+          "hideWhenDisconnected": true
+        },
+        {
           "id": "omarchy.agents"
         },
         {
