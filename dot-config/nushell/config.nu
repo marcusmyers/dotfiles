@@ -94,17 +94,38 @@ alias mfs = ^php artisan migrate:fresh --seed
 def "nu-complete projects" [] {
     let projects = ($env.PROJECTS | path expand)
     if ($projects | path exists) {
-        ls $projects | where type == dir | get name | path basename
+        glob ($projects | path join "**" ".git")
+            | each { |git_dir| $git_dir | path dirname | path relative-to $projects }
+            | sort
+            | uniq
     } else {
         []
     }
 }
 
 def --env p [project?: string@"nu-complete projects"] {
+    let projects = ($env.PROJECTS | path expand)
     let destination = if ($project | is-empty) {
-        $env.PROJECTS
+        $projects
     } else {
-        $env.PROJECTS | path join $project
+        let direct = ($projects | path join $project)
+
+        if ($direct | path exists) {
+            $direct
+        } else {
+            let matches = (nu-complete projects | where { |candidate|
+                ($candidate | path basename) == $project
+            })
+
+            match ($matches | length) {
+                1 => ($projects | path join ($matches | first))
+                0 => (error make {msg: $"Project '($project)' does not exist"})
+                _ => (error make {
+                    msg: $"Project '($project)' is ambiguous"
+                    help: $"Use one of: ($matches | str join ', ')"
+                })
+            }
+        }
     }
 
     if ($destination | path exists) {
