@@ -13,10 +13,18 @@
           "verticalFormat": "HH\n—\nmm"
         },
         {
+          "id": "io.github.marcusmyers.espn-scores"
+        },
+        {
           "id": "omarchy.keyboard-layout"
         },
         {
           "id": "omarchy.weather"
+        },
+        {
+          "id": "io.github.marcusmyers.laravel-cloud",
+          "projectPath": "/home/mark/.local/state/omarchy/laravel-cloud",
+          "cloudPath": "/home/mark/.composer/vendor/bin/cloud"
         },
         {
           "id": "omarchy.system-update"
@@ -28,6 +36,9 @@
         },
         {
           "id": "omarchy.workspaces"
+        },
+        {
+          "id": "ky.jellyfin-nowplaying"
         }
       ],
       "right": [
