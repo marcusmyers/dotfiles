@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ollama Consultant"
+  short_description: "Consult a local Ollama model on bounded context"
+  default_prompt: "Use the local Ollama consultant for a bounded second opinion."
