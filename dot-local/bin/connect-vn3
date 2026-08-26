@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+readonly server="192.168.1.203"
+readonly domain="nagelinc"
+readonly username="vn1"
+
+if ! command -v xfreerdp3 >/dev/null 2>&1; then
+  notify-send "Windows server" "xfreerdp3 is not installed" 2>/dev/null || true
+  exit 127
+fi
+
+exec xfreerdp3 \
+  "/v:${server}" \
+  "/d:${domain}" \
+  "/u:${username}" \
+  /from-stdin:force \
+  /cert:tofu \
+  +dynamic-resolution \
+  +clipboard

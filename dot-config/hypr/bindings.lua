@@ -27,3 +27,8 @@
 o.bind("SUPER + CTRL + SHIFT + S", "Screenshot", "omarchy-capture-screenshot")
 -- o.bind("SUPER + H", nil, "voxtype record toggle")
 -- o.bind("SUPER + PERIOD", nil, "omarchy-shell shell toggle omarchy.emojis")
+
+-- Remote desktop:
+o.bind("SUPER + SHIFT + R", "Windows server .201", "omarchy launch terminal $HOME/.local/bin/connect-vn1")
+o.bind("SUPER + SHIFT + F2", "Windows server .202", "omarchy launch terminal $HOME/.local/bin/connect-vn2")
+o.bind("SUPER + SHIFT + F3", "Windows server .203", "omarchy launch terminal $HOME/.local/bin/connect-vn3")
